@@ -101,14 +101,17 @@ header img { width: 22%; max-height: 14vh; object-fit: contain; cursor: pointer;
       margin-bottom: 115px;
   }
   .cell-number { 
-      font-size: 2.3rem; 
+      font-size: 1.8rem; 
+      margin-top: -2px;
   }
   .cell-name { 
       font-size: 0.65rem; 
+      margin-top: -1px;
+      font-weight: 900;
   }
   .number-cell { 
       border-radius: 14px; 
-      padding: 8px 4px;
+      padding: 4px 4px 12px 4px;
   }
   .footer-actions { padding: 12px; }
   .btn-main { padding: 16px; font-size: 1.1rem; }
