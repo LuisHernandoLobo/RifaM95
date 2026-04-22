@@ -23,6 +23,7 @@
       </div>
       <div style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 8px; font-weight: 700; text-transform: uppercase;">
         Puedes realizar el pago en: <span id="display-payment-info" style="color: var(--accent-green); font-weight: 800;"></span>
+        <span id="cash-container" style="display:none;"> o en efectivo a: <span id="display-cash-info" style="color: var(--accent-yellow); font-weight: 800;"></span></span>
       </div>
     </div>
 
@@ -55,7 +56,10 @@
       <input type="tel" id="admin-config-whatsapp" placeholder="Ej: 573001234567">
       
       <label style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 10px; display: block;">DATOS DE PAGO / CONSIGNACIÓN:</label>
-      <textarea id="admin-config-payment" placeholder="Ej: Nequi 3001234567 - Ahorros Bancolombia 123..." rows="3"></textarea>
+      <textarea id="admin-config-payment" placeholder="Ej: Nequi 3001234567 - Ahorros Bancolombia 123..." rows="2"></textarea>
+
+      <label style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 10px; display: block;">PAGO EN EFECTIVO A (NOMBRE):</label>
+      <input type="text" id="admin-config-cash" placeholder="Ej: Juan Pérez">
       
       <p style="font-size: 0.65rem; color: #aaa; margin-top: 5px;">Estos datos se enviarán automáticamente al comprador en su mensaje de confirmación.</p>
     </div>

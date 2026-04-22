@@ -26,6 +26,7 @@ const modalImageFull = document.getElementById('modal-image-full');
 let selectedNumbers = [];
 let adminWhatsApp = "";
 let adminPaymentInfo = "";
+let adminCashInfo = "";
 let isAdmin = false;
 let numbersData = {};
 let lastHighlightedBuyer = null;
@@ -70,11 +71,24 @@ function loadConfig() {
         if (doc.exists) {
             const data = doc.data();
             adminWhatsApp = data.adminWhatsApp || "";
-            adminPaymentInfo = data.paymentInfo || "Consultar con el administrador";
+            adminPaymentInfo = data.paymentInfo || "";
+            adminCashInfo = data.cashInfo || "";
+            
             document.getElementById('admin-config-whatsapp').value = adminWhatsApp;
             document.getElementById('admin-config-payment').value = adminPaymentInfo;
+            document.getElementById('admin-config-cash').value = adminCashInfo;
+            
             // Mostrar en el encabezado
-            document.getElementById('display-payment-info').innerText = adminPaymentInfo;
+            document.getElementById('display-payment-info').innerText = adminPaymentInfo || "PENDIENTE";
+            
+            const cashContainer = document.getElementById('cash-container');
+            const displayCashInfo = document.getElementById('display-cash-info');
+            if (adminCashInfo) {
+                cashContainer.style.display = 'inline';
+                displayCashInfo.innerText = adminCashInfo;
+            } else {
+                cashContainer.style.display = 'none';
+            }
         }
     });
 }
@@ -84,22 +98,32 @@ function openFullImage() { modalImageFull.style.display = 'flex'; }
 // --- LOGICA SELECCIÓN ---
 function handleCellClick(id) {
     const data = numbersData[id] || { status: 'free' };
+    
     if (isAdmin) {
         if (selectedNumbers.includes(id)) {
             toggleSelection(id);
         } else if (data.buyer && data.phone) {
             const buyer = data.buyer;
             const phone = data.phone;
+            const isAlreadySelected = selectedNumbers.includes(id);
+            
             Object.keys(numbersData).forEach(numId => {
                 const n = numbersData[numId];
                 if (n.buyer === buyer && n.phone === phone) {
-                    if (!selectedNumbers.includes(numId)) {
-                        selectedNumbers.push(numId);
-                        updateCellVisual(numId, true);
+                    if (isAlreadySelected) {
+                        selectedNumbers = selectedNumbers.filter(x => x !== numId);
+                        updateCellVisual(numId, false);
+                    } else {
+                        if (!selectedNumbers.includes(numId)) {
+                            selectedNumbers.push(numId);
+                            updateCellVisual(numId, true);
+                        }
                     }
                 }
             });
-        } else { toggleSelection(id); }
+        } else {
+            toggleSelection(id);
+        }
     } else {
         if (data.status !== 'free' && !selectedNumbers.includes(id)) {
             highlightBuyerGroup(data.buyer, data.phone);
@@ -113,7 +137,10 @@ function handleCellClick(id) {
 function highlightBuyerGroup(buyer, phone) {
     if (!buyer || !phone) return;
     document.querySelectorAll('.highlight-group').forEach(el => el.classList.remove('highlight-group'));
-    if (lastHighlightedBuyer === buyer + phone) { lastHighlightedBuyer = null; return; }
+    if (lastHighlightedBuyer === buyer + phone) {
+        lastHighlightedBuyer = null;
+        return;
+    }
     Object.keys(numbersData).forEach(id => {
         if (numbersData[id].buyer === buyer && numbersData[id].phone === phone) {
             const cell = document.getElementById(`cell-${id}`);
@@ -139,6 +166,7 @@ function updateCellVisual(id, isSelected) {
     const cell = document.getElementById(`cell-${id}`);
     const nameSpan = document.getElementById(`name-${id}`);
     const status = numbersData[id] ? numbersData[id].status : 'free';
+    
     if (isSelected) {
         cell.className = 'number-cell selected';
         if (nameSpan) nameSpan.innerText = isAdmin ? "SEL" : "TUYO";
@@ -154,6 +182,7 @@ function updateUI() {
     document.getElementById('count-display').innerText = count;
     document.getElementById('total-display').innerText = total.toLocaleString();
     btnReserveTrigger.disabled = count === 0;
+    
     if (isAdmin) {
         btnReserveTrigger.innerText = count > 0 ? `GESTIONAR ${count} ELEGIDOS` : "SELECCIONA NÚMEROS";
         btnReserveTrigger.style.background = "var(--accent-yellow)";
@@ -206,7 +235,11 @@ document.getElementById('btn-confirm-reserve').onclick = async () => {
 
         // Mensaje para el COMPRADOR (Trazabilidad e Instrucciones de pago)
         setTimeout(() => {
-            const msgBuyer = `¡Hola ${name}! Has reservado los números: ${selectionToProcess.sort().join(', ')}. Total a pagar: $${total.toLocaleString()}. Por favor realiza tu consignación aquí: ${adminPaymentInfo}. Envía el comprobante por este medio.`;
+            let payMsg = `Por favor realiza tu consignación aquí: ${adminPaymentInfo}.`;
+            if (adminCashInfo) {
+                payMsg += ` O paga en efectivo a: ${adminCashInfo}.`;
+            }
+            const msgBuyer = `¡Hola ${name}! Has reservado los números: ${selectionToProcess.sort().join(', ')}. Total a pagar: $${total.toLocaleString()}. ${payMsg} Envía el comprobante por este medio.`;
             window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msgBuyer)}`, '_blank');
         }, 1500);
 
@@ -220,9 +253,11 @@ window.setNumberStatus = async (newStatus) => {
     const selectionToProcess = [...selectedNumbers];
     const batch = db.batch();
     const phonesToNotify = new Map();
+
     closeModals();
     selectedNumbers = [];
     updateUI();
+
     selectionToProcess.forEach(id => {
         const updateData = { status: newStatus };
         if (newStatus === 'free') {
@@ -235,9 +270,13 @@ window.setNumberStatus = async (newStatus) => {
             updateData.buyer = firebase.firestore.FieldValue.delete();
             updateData.phone = firebase.firestore.FieldValue.delete();
             updateData.timestamp = firebase.firestore.FieldValue.delete();
-        } else { updateData.buyer = newName; updateData.phone = newPhone; }
+        } else {
+            updateData.buyer = newName;
+            updateData.phone = newPhone;
+        }
         batch.set(db.collection("numbers").doc(id), updateData, { merge: true });
     });
+
     try {
         await batch.commit();
         if (newStatus === 'free') {
@@ -254,19 +293,24 @@ document.getElementById('btn-admin-save-data').onclick = async () => {
     const newPhone = document.getElementById('admin-edit-phone').value;
     const selectionToProcess = [...selectedNumbers];
     const batch = db.batch();
+
     closeModals();
     selectedNumbers = [];
     updateUI();
+
     selectionToProcess.forEach(id => {
         batch.update(db.collection("numbers").doc(id), { buyer: newName, phone: newPhone });
     });
-    try { await batch.commit(); } catch (e) { alert("Error"); }
+
+    try {
+        await batch.commit();
+    } catch (e) { alert("Error"); }
 };
 
 document.getElementById('btn-admin-wa-single').onclick = () => {
     const phone = document.getElementById('admin-edit-phone').value;
     const name = document.getElementById('admin-edit-name').value;
-    if (phone) window.open(`https://wa.me/${phone}?text=Hola ${name}, contacto rifa...`, '_blank');
+    if (phone) window.open(`https://wa.me/${phone}?text=Hola ${name}, contacto por la rifa...`, '_blank');
 };
 
 document.getElementById('btn-admin-login').onclick = () => {
@@ -308,9 +352,14 @@ btnAdminSettings.onclick = () => { modalAdminSettings.style.display = 'flex'; };
 document.getElementById('btn-save-admin-config').onclick = async () => {
     const newWA = document.getElementById('admin-config-whatsapp').value;
     const newPayment = document.getElementById('admin-config-payment').value;
+    const newCash = document.getElementById('admin-config-cash').value;
     if (!newWA) return alert("Ingresa un número válido");
     try {
-        await db.collection("config").doc("main").set({ adminWhatsApp: newWA, paymentInfo: newPayment }, { merge: true });
+        await db.collection("config").doc("main").set({ 
+            adminWhatsApp: newWA, 
+            paymentInfo: newPayment,
+            cashInfo: newCash
+        }, { merge: true });
         alert("Configuración guardada");
         closeModals();
     } catch (e) { alert("Error al guardar"); }
