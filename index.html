@@ -30,10 +30,20 @@
     </div>
 
     <div class="admin-side-controls">
-      <button id="btn-admin-login" class="btn-admin-access">ADMIN</button>
-      <div class="selection-summary-mini">
-        <div class="mini-stat">ELEGIDOS<br><strong id="count-display">0</strong></div>
-        <div class="mini-stat total">TOTAL<br>$<strong id="total-display">0</strong></div>
+      <div class="admin-top-buttons">
+        <button id="btn-admin-login" class="btn-admin-access">ADMIN</button>
+        <button id="btn-list-report" class="btn-admin-access btn-list-access">LIST</button>
+      </div>
+      <div class="stats-cards-row">
+        <div class="selection-summary-mini">
+          <div class="mini-stat">ELEGIDOS<br><strong id="count-display">0</strong></div>
+          <div class="mini-stat total">TOTAL<br>$<strong id="total-display">0</strong></div>
+        </div>
+        <div class="selection-summary-mini stats-mini">
+          <div class="mini-stat sold-stat">VEND.<br><strong id="sold-display">0</strong></div>
+          <div class="mini-stat reserved-stat">APART.<br><strong id="reserved-display">0</strong></div>
+          <div class="mini-stat free-stat">LIBRES<br><strong id="free-display">100</strong></div>
+        </div>
       </div>
     </div>
   </header>
@@ -127,6 +137,48 @@
     <textarea id="broadcast-msg" placeholder="Ej: Hola! La rifa juega este sábado..." rows="5"></textarea>
     <button id="btn-send-broadcast" class="btn-main" style="background:var(--accent-green)">ENVIAR A TODOS</button>
     <button onclick="closeModals()" class="btn-ghost">CANCELAR</button>
+  </div>
+</div>
+
+<!-- MODAL REPORTE LIST -->
+<div id="modal-list-report" class="modal">
+  <div class="modal-content card-popup" style="max-width: 520px; max-height: 85vh; overflow-y: auto;">
+    <h3 style="color: var(--accent-blue);">REPORTE DE VENTAS</h3>
+    
+    <div class="list-stats-grid">
+      <div class="list-stat-card sold-card">
+        <span class="list-stat-label">VENDIDOS</span>
+        <strong id="report-sold">0</strong>
+        <span class="list-stat-money" id="report-sold-money">$0</span>
+      </div>
+      <div class="list-stat-card reserved-card">
+        <span class="list-stat-label">APARTADOS</span>
+        <strong id="report-reserved">0</strong>
+        <span class="list-stat-money" id="report-reserved-money">$0</span>
+      </div>
+      <div class="list-stat-card total-card">
+        <span class="list-stat-label">TOTAL GESTION</span>
+        <strong id="report-total">0</strong>
+        <span class="list-stat-money" id="report-total-money">$0</span>
+      </div>
+      <div class="list-stat-card free-card">
+        <span class="list-stat-label">LIBRES</span>
+        <strong id="report-free">100</strong>
+        <span class="list-stat-money" style="color: var(--text-secondary);">disponibles</span>
+      </div>
+    </div>
+
+    <div style="margin-top: 10px;">
+      <div style="display: flex; gap: 8px; margin-bottom: 10px; flex-wrap: wrap;">
+        <button class="list-filter-btn active" onclick="filterReport('all')" id="filter-all">TODOS</button>
+        <button class="list-filter-btn" onclick="filterReport('sold')" id="filter-sold">VENDIDOS</button>
+        <button class="list-filter-btn" onclick="filterReport('reserved')" id="filter-reserved">APARTADOS</button>
+        <button class="list-filter-btn" onclick="filterReport('free')" id="filter-free">LIBRES</button>
+      </div>
+      <div id="report-list" style="display: flex; flex-direction: column; gap: 6px;"></div>
+    </div>
+
+    <button onclick="closeModals()" class="btn-main" style="background: #334155; padding: 12px; font-size: 0.9rem; margin-top: 10px;">CERRAR</button>
   </div>
 </div>
 

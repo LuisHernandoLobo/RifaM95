@@ -65,6 +65,7 @@ function listenToNumbers() {
                 if (nameSpan) nameSpan.innerText = (data.status !== 'free' ? (data.buyer || "") : "");
             }
         });
+        updateMiniStats();
     });
 }
 
@@ -436,7 +437,90 @@ window.closeModals = () => {
     modalAdminBroadcast.style.display = 'none';
     modalAdminSettings.style.display = 'none';
     modalImageFull.style.display = 'none';
-    document.getElementById('modal-buyer-status').style.display = 'none';	
+    document.getElementById('modal-buyer-status').style.display = 'none';
+    document.getElementById('modal-list-report').style.display = 'none';
 };
+
+function updateMiniStats() {
+    const values = Object.values(numbersData);
+    const total = 100;
+    const sold = values.filter(n => n.status === 'sold').length;
+    const reserved = values.filter(n => n.status === 'reserved').length;
+    const free = total - sold - reserved;
+    document.getElementById('sold-display').innerText = sold;
+    document.getElementById('reserved-display').innerText = reserved;
+    document.getElementById('free-display').innerText = free;
+}
+
+let currentReportFilter = 'all';
+
+window.filterReport = (filter) => {
+    currentReportFilter = filter;
+    document.querySelectorAll('.list-filter-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(`filter-${filter}`).classList.add('active');
+    renderReportList();
+};
+
+function renderReportList() {
+    const container = document.getElementById('report-list');
+    const allNums = [];
+
+    for (let i = 0; i < 100; i++) {
+        const id = i.toString().padStart(2, '0');
+        const data = numbersData[id] || { status: 'free' };
+        allNums.push({ id, ...data });
+    }
+
+    const filtered = currentReportFilter === 'all'
+        ? allNums.filter(n => n.status !== 'free')
+        : allNums.filter(n => n.status === currentReportFilter);
+
+    const sorted = filtered.sort((a, b) => {
+        const order = { sold: 0, reserved: 1, free: 2 };
+        return (order[a.status] ?? 2) - (order[b.status] ?? 2) || a.id.localeCompare(b.id);
+    });
+
+    if (sorted.length === 0) {
+        container.innerHTML = `<p style="text-align:center; color: var(--text-secondary); padding: 20px; font-size: 0.85rem;">No hay números en este estado.</p>`;
+        return;
+    }
+
+    const statusLabel = { sold: 'VENDIDO', reserved: 'APARTADO', free: 'LIBRE' };
+    container.innerHTML = sorted.map(n => `
+        <div class="report-row">
+            <div class="report-num-badge ${n.status}">${n.id}</div>
+            <div class="report-buyer">
+                <div class="report-buyer-name">${n.buyer || (n.status === 'free' ? '—' : 'Sin nombre')}</div>
+                <div class="report-buyer-phone">${n.phone || (n.status === 'free' ? 'Disponible' : 'Sin teléfono')}</div>
+            </div>
+            <span class="report-status-pill ${n.status}">${statusLabel[n.status] || n.status}</span>
+        </div>
+    `).join('');
+}
+
+function openListReport() {
+    const values = Object.values(numbersData);
+    const sold = values.filter(n => n.status === 'sold').length;
+    const reserved = values.filter(n => n.status === 'reserved').length;
+    const total = sold + reserved;
+    const free = 100 - total;
+
+    document.getElementById('report-sold').innerText = sold;
+    document.getElementById('report-sold-money').innerText = `$${(sold * 20000).toLocaleString()}`;
+    document.getElementById('report-reserved').innerText = reserved;
+    document.getElementById('report-reserved-money').innerText = `$${(reserved * 20000).toLocaleString()}`;
+    document.getElementById('report-total').innerText = total;
+    document.getElementById('report-total-money').innerText = `$${(total * 20000).toLocaleString()}`;
+    document.getElementById('report-free').innerText = free;
+
+    currentReportFilter = 'all';
+    document.querySelectorAll('.list-filter-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('filter-all').classList.add('active');
+    renderReportList();
+
+    document.getElementById('modal-list-report').style.display = 'flex';
+}
+
+document.getElementById('btn-list-report').onclick = openListReport;
 
 init();

@@ -134,3 +134,54 @@ input { background: #020617; border: 1px solid var(--border-color); border-radiu
 .btn-status.free { background: #334155; color: #fff; }
 .btn-status.wa { background: #25d366; color: #fff; }
 .btn-ghost { background: transparent; color: var(--text-secondary); border: none; font-weight: 700; cursor: pointer; }
+
+/* --- ADMIN TOP BUTTONS --- */
+.admin-top-buttons { display: flex; gap: 6px; justify-content: flex-end; }
+.btn-list-access { background: rgba(16, 185, 129, 0.15) !important; border-color: var(--accent-green) !important; color: var(--accent-green) !important; }
+
+/* --- STATS CARDS ROW --- */
+.stats-cards-row { display: flex; gap: 6px; width: 100%; }
+.stats-mini { border-color: rgba(255,255,255,0.15) !important; box-shadow: none !important; }
+.sold-stat strong { color: var(--accent-green) !important; }
+.reserved-stat strong { color: var(--accent-yellow) !important; }
+.free-stat strong { color: var(--text-secondary) !important; }
+
+/* --- LIST REPORT MODAL --- */
+.list-stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.list-stat-card { background: rgba(255,255,255,0.04); border: 1px solid var(--border-color); border-radius: 14px; padding: 12px; display: flex; flex-direction: column; align-items: center; gap: 2px; text-align: center; }
+.list-stat-card strong { font-size: 2rem; font-weight: 950; line-height: 1; }
+.list-stat-label { font-size: 0.6rem; font-weight: 900; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; }
+.list-stat-money { font-size: 0.7rem; font-weight: 800; }
+.sold-card { border-color: var(--accent-green); }
+.sold-card strong { color: var(--accent-green); }
+.sold-card .list-stat-money { color: var(--accent-green); }
+.reserved-card { border-color: var(--accent-yellow); }
+.reserved-card strong { color: var(--accent-yellow); }
+.reserved-card .list-stat-money { color: var(--accent-yellow); }
+.total-card { border-color: var(--accent-blue); }
+.total-card strong { color: var(--accent-blue); }
+.total-card .list-stat-money { color: var(--accent-blue); }
+.free-card strong { color: var(--text-secondary); }
+
+.list-filter-btn { padding: 6px 14px; background: rgba(255,255,255,0.05); border: 1px solid var(--border-color); border-radius: 20px; color: var(--text-secondary); font-size: 0.7rem; font-weight: 900; cursor: pointer; text-transform: uppercase; }
+.list-filter-btn.active { background: var(--accent-blue); border-color: var(--accent-blue); color: #fff; }
+
+.report-row { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 12px; background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); }
+.report-num-badge { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1rem; font-weight: 950; flex-shrink: 0; }
+.report-num-badge.sold { background: var(--accent-green); color: #020617; }
+.report-num-badge.reserved { background: rgba(251,191,36,0.15); border: 2px solid var(--accent-yellow); color: var(--accent-yellow); }
+.report-num-badge.free { background: rgba(255,255,255,0.05); color: var(--text-secondary); }
+.report-buyer { flex: 1; }
+.report-buyer-name { font-size: 0.85rem; font-weight: 800; color: var(--text-primary); }
+.report-buyer-phone { font-size: 0.7rem; color: var(--text-secondary); }
+.report-status-pill { font-size: 0.6rem; font-weight: 900; padding: 3px 8px; border-radius: 20px; text-transform: uppercase; }
+.report-status-pill.sold { background: rgba(16,185,129,0.2); color: var(--accent-green); }
+.report-status-pill.reserved { background: rgba(251,191,36,0.2); color: var(--accent-yellow); }
+.report-status-pill.free { background: rgba(255,255,255,0.05); color: var(--text-secondary); }
+
+@media (max-width: 600px) and (orientation: portrait) {
+  .stats-cards-row { flex-direction: column; }
+  .selection-summary-mini { width: 100%; }
+  .stats-mini .mini-stat strong { font-size: 1.1rem; }
+  .stats-mini .mini-stat { font-size: 0.6rem; }
+}
