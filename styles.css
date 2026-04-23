@@ -1,67 +1,7 @@
-:root {
-  --bg-primary: #020617;
-  --bg-secondary: #0f172a;
-  --text-primary: #f8fafc;
-  --text-secondary: #94a3b8;
-  --border-color: #1e293b;
-  --accent-blue: #3b82f6;
-  --accent-green: #10b981;
-  --accent-yellow: #fbbf24;
-  --accent-red: #ef4444;
-  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
-}
+/* --- AGREGAR AL FINAL DE styles.css --- */
 
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: var(--font-sans); }
-body { background: var(--bg-primary); color: var(--text-primary); height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
-.container { flex: 1; display: flex; flex-direction: column; padding: 10px; gap: 8px; overflow-y: auto; }
-
-/* --- HEADER MAXIMIZADO --- */
-header { flex: 0 0 auto; min-height: 16vh; background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%); border: 1px solid var(--border-color); border-radius: 16px; padding: 12px 18px; display: flex; align-items: center; gap: 15px; position: relative; box-shadow: 0 10px 40px rgba(0,0,0,0.6); }
-header img { width: 22%; max-height: 14vh; object-fit: contain; cursor: pointer; }
-.raffle-info { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 5px; }
-.raffle-info h2 { font-size: 1.8rem; font-weight: 900; line-height: 1.1; background: linear-gradient(to right, #fff, var(--accent-yellow)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; }
-.admin-side-controls { display: flex; flex-direction: column; align-items: flex-end; min-width: 180px; gap: 6px; }
-
-.selection-summary-mini {
-  background: rgba(0,0,0,0.7);
-  padding: 8px 12px;
-  border-radius: 14px;
-  border: 2px solid var(--accent-blue);
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 15px;
-  box-shadow: 0 0 25px rgba(59, 130, 246, 0.3);
-}
-.mini-stat {
-  font-size: 0.7rem;
-  font-weight: 900;
-  color: #94a3b8;
-  text-transform: uppercase;
-  text-align: center;
-  flex: 1;
-}
-.mini-stat strong {
-  color: var(--accent-yellow);
-  font-size: 1.6rem;
-  display: block;
-  letter-spacing: -1px;
-}
-.mini-stat.total strong { color: var(--accent-green); }
-
-/* --- CARTÓN XL --- */
-.raffle-grid { display: grid; grid-template-columns: repeat(10, 1fr); gap: 5px; padding: 6px; background: #0f172a; border-radius: 15px; margin-bottom: 95px; }
-.number-cell { aspect-ratio: 1/1; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1px solid var(--border-color); border-radius: 10px; background: #020617; cursor: pointer; overflow: hidden; padding: 2px; }
-.cell-number { font-size: 2.8rem; /* MÁS GRANDE EN PC */ font-weight: 950; color: var(--accent-blue); line-height: 1; }
-.cell-name { font-size: 0.75rem; font-weight: 800; color: #fff; text-transform: uppercase; max-width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 3px; }
-
-.number-cell.selected { background: var(--accent-blue) !important; border-color: #fff; transform: scale(1.08); z-index: 5; box-shadow: 0 0 20px rgba(59, 130, 246, 0.6); }
-.number-cell.selected .cell-number, .number-cell.selected .cell-name { color: #fff !important; }
-
-/* Resaltado de grupo para clientes con efecto Neón */
 .highlight-group {
-  border-color: #00f2ff !important; /* Cian Neón */
+  border-color: #00f2ff !important;
   box-shadow: 0 0 15px #00f2ff, inset 0 0 10px #00f2ff;
   transform: scale(1.05);
   z-index: 4;
@@ -70,67 +10,15 @@ header img { width: 22%; max-height: 14vh; object-fit: contain; cursor: pointer;
 
 @keyframes pulse-neon {
   0% { box-shadow: 0 0 5px #00f2ff; }
-  50% { box-shadow: 0 0 25px #00f2ff, inset 0 0 5px #00f2ff; }
+  50% { box-shadow: 0 0 20px #00f2ff, inset 0 0 5px #00f2ff; }
   100% { box-shadow: 0 0 5px #00f2ff; }
 }
-.admin-mode-active .number-cell.selected { background: var(--accent-red) !important; box-shadow: 0 0 25px var(--accent-red); border-color: #fff; }
-.number-cell.sold { background: var(--accent-green); border-color: var(--accent-green); }
-.number-cell.sold .cell-number, .number-cell.sold .cell-name { color: #020617 !important; font-weight: 950; }
-.number-cell.reserved { border-color: var(--accent-yellow); border-width: 2px; }
-.number-cell.reserved .cell-number { color: var(--accent-yellow); }
 
-/* --- MODALES Y OTROS --- */
-.footer-actions { position: fixed; bottom: 0; left: 0; width: 100%; padding: 15px; display: flex; gap: 10px; background: rgba(2,6,23,0.95); backdrop-filter: blur(15px); z-index: 100; border-top: 1px solid var(--border-color); }
-.btn-main { flex: 1; padding: 20px; background: var(--accent-blue); color: #fff; border: none; border-radius: 18px; font-weight: 950; cursor: pointer; text-transform: uppercase; font-size: 1.2rem; box-shadow: 0 4px 20px rgba(0,0,0,0.4); }
-.btn-admin-access { font-size: 0.65rem; padding: 4px 8px; background: rgba(255,255,255,0.08); border: 1px solid var(--border-color); color: var(--text-secondary); border-radius: 6px; cursor: pointer; }
-
-/* --- OPTIMIZACIÓN PARA MÓVILES --- */
-@media (max-width: 768px) {
-  header { min-height: 12vh; padding: 8px 12px; }
-  .raffle-info h2 { font-size: 1.3rem; }
-  .selection-summary-mini { padding: 6px 10px; gap: 8px; }
-  .mini-stat strong { font-size: 1.4rem; }
-  .mini-stat.total strong { font-size: 1.4rem; }
+/* Ajuste para que los micro-cartones se vean bien en el modal */
+.modal-content .raffle-grid .number-cell {
+    padding: 2px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-
-/* SOLO EN VERTICAL: Cartón de 5 columnas + números grandes */
-@media (max-width: 600px) and (orientation: portrait) {
-  .raffle-grid {
-      grid-template-columns: repeat(5, 1fr);
-      gap: 8px;
-      padding: 10px;
-      margin-bottom: 115px;
-  }
-  .cell-number { 
-      font-size: 1.2rem; 
-      margin-top: -8px; /* SUBE EL NÚMERO */
-  }
-  .cell-name { 
-      font-size: 0.55rem; 
-      font-weight: 800;
-      white-space: normal; /* PERMITE DOS LÍNEAS */
-      line-height: 1.1;
-      text-align: center;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-  }
-  .number-cell { 
-      border-radius: 14px; 
-      padding: 4px 4px 12px 4px;
-  }
-  .footer-actions { padding: 12px; }
-  .btn-main { padding: 16px; font-size: 1.1rem; }
-}
-
-.modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); z-index: 1000; align-items: center; justify-content: center; padding: 20px; }
-.card-popup { background: #0f172a; border: 1px solid var(--border-color); padding: 30px; border-radius: 28px; width: 100%; max-width: 440px; display: flex; flex-direction: column; gap: 15px; box-shadow: 0 30px 60px rgba(0,0,0,0.8); }
-input { background: #020617; border: 1px solid var(--border-color); border-radius: 12px; padding: 16px; color: #fff; width: 100%; outline: none; font-weight: 700; }
-.admin-buttons-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.btn-status { padding: 15px; border: none; border-radius: 14px; font-weight: 900; font-size: 0.9rem; cursor: pointer; }
-.btn-status.sold { background: var(--accent-green); color: #020617; }
-.btn-status.reserved { background: var(--accent-yellow); color: #000; }
-.btn-status.free { background: #334155; color: #fff; }
-.btn-status.wa { background: #25d366; color: #fff; }
-.btn-ghost { background: transparent; color: var(--text-secondary); border: none; font-weight: 700; cursor: pointer; }
