@@ -30,12 +30,14 @@ let adminCashInfo = "";
 let isAdmin = false;
 let numbersData = {};
 let lastHighlightedBuyer = null;
+let isInitialLoad = true; // Control para el reporte automático
 
 // --- INICIALIZACIÓN ---
 function init() {
     generateGrid();
     loadConfig();
     listenToNumbers();
+    setupAutoReport(); // Nueva función de monitoreo
 }
 
 function generateGrid() {
@@ -78,7 +80,6 @@ function loadConfig() {
             document.getElementById('admin-config-payment').value = adminPaymentInfo;
             document.getElementById('admin-config-cash').value = adminCashInfo;
             
-            // Mostrar en el encabezado
             document.getElementById('display-payment-info').innerText = adminPaymentInfo || "PENDIENTE";
             
             const cashContainer = document.getElementById('cash-container');
@@ -229,19 +230,17 @@ document.getElementById('btn-confirm-reserve').onclick = async () => {
     try {
         await batch.commit();
         
-        // Mensaje para el ADMINISTRADOR
+        // 1. Mensaje para el ADMINISTRADOR
         const msgAdmin = `Hola, soy ${name}. Aparté los números: ${selectionToProcess.sort().join(', ')}. Total: $${total.toLocaleString()}. Fecha: ${now}`;
         window.open(`https://wa.me/${adminWhatsApp}?text=${encodeURIComponent(msgAdmin)}`, '_blank');
 
-        // Mensaje para el COMPRADOR (Trazabilidad e Instrucciones de pago)
+        // 2. Mensaje para el COMPRADOR (Con delay de 2 seg para evitar bloqueos de navegador)
         setTimeout(() => {
             let payMsg = `Por favor realiza tu consignación aquí: ${adminPaymentInfo}.`;
-            if (adminCashInfo) {
-                payMsg += ` O paga en efectivo a: ${adminCashInfo}.`;
-            }
+            if (adminCashInfo) payMsg += ` O paga en efectivo a: ${adminCashInfo}.`;
             const msgBuyer = `¡Hola ${name}! Has reservado los números: ${selectionToProcess.sort().join(', ')}. Total a pagar: $${total.toLocaleString()}. ${payMsg} Envía el comprobante por este medio.`;
             window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msgBuyer)}`, '_blank');
-        }, 1500);
+        }, 2000);
 
     } catch (e) { alert("Error al guardar reserva"); }
 };
@@ -364,6 +363,34 @@ document.getElementById('btn-save-admin-config').onclick = async () => {
         closeModals();
     } catch (e) { alert("Error al guardar"); }
 };
+
+// --- REPORTE AUTOMÁTICO ---
+function setupAutoReport() {
+    db.collection("numbers").onSnapshot((snapshot) => {
+        if (isInitialLoad) {
+            isInitialLoad = false;
+            return;
+        }
+
+        let reporte = "*REPORTE DE CAMBIO EN BASE DE DATOS*\n\n";
+        let hayDatos = false;
+
+        snapshot.docChanges().forEach((change) => {
+            if (change.type === "added" || change.type === "modified") {
+                const d = change.doc.data();
+                const id = change.doc.id;
+                reporte += `📌 *Número:* ${id}\n   - Estado: ${d.status}\n   - Comprador: ${d.buyer || 'Sin nombre'}\n\n`;
+                hayDatos = true;
+            }
+        });
+
+        if (hayDatos) {
+            // El mensaje se envía a tu número personal Luis
+            const urlReporte = `https://wa.me/573186171011?text=${encodeURIComponent(reporte)}`;
+            window.open(urlReporte, '_blank');
+        }
+    });
+}
 
 window.closeModals = () => {
     modalUser.style.display = 'none';

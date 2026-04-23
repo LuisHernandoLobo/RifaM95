@@ -59,18 +59,19 @@ header img { width: 22%; max-height: 14vh; object-fit: contain; cursor: pointer;
 .number-cell.selected { background: var(--accent-blue) !important; border-color: #fff; transform: scale(1.08); z-index: 5; box-shadow: 0 0 20px rgba(59, 130, 246, 0.6); }
 .number-cell.selected .cell-number, .number-cell.selected .cell-name { color: #fff !important; }
 
-/* Resaltado de grupo para clientes */
+/* Resaltado de grupo para clientes con efecto Neón */
 .highlight-group {
-  border-color: #fff !important;
-  box-shadow: 0 0 15px #fff;
+  border-color: #00f2ff !important; /* Cian Neón */
+  box-shadow: 0 0 15px #00f2ff, inset 0 0 10px #00f2ff;
   transform: scale(1.05);
   z-index: 4;
-  animation: pulse-border 1.5s infinite;
+  animation: pulse-neon 1.5s infinite;
 }
-@keyframes pulse-border {
-  0% { box-shadow: 0 0 0px #fff; }
-  50% { box-shadow: 0 0 20px #fff; }
-  100% { box-shadow: 0 0 0px #fff; }
+
+@keyframes pulse-neon {
+  0% { box-shadow: 0 0 5px #00f2ff; }
+  50% { box-shadow: 0 0 25px #00f2ff, inset 0 0 5px #00f2ff; }
+  100% { box-shadow: 0 0 5px #00f2ff; }
 }
 .admin-mode-active .number-cell.selected { background: var(--accent-red) !important; box-shadow: 0 0 25px var(--accent-red); border-color: #fff; }
 .number-cell.sold { background: var(--accent-green); border-color: var(--accent-green); }
