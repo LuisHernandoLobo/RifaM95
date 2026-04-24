@@ -55,8 +55,14 @@ function init() {
     
     // Vincular botones de backup
     document.getElementById('btn-export-backup').onclick = () => {
-        if (Object.keys(numbersData).length === 0) return alert("Cargando datos, intenta en un segundo...");
-        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(numbersData, null, 2));
+        const fullBackup = {};
+        for (let i = 0; i < 100; i++) {
+            const id = i.toString().padStart(2, '0');
+            // Si el número existe en numbersData lo usamos, si no, creamos un objeto 'free'
+            fullBackup[id] = numbersData[id] || { status: 'free' };
+        }
+        
+        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(fullBackup, null, 2));
         const downloadAnchorNode = document.createElement('a');
         downloadAnchorNode.setAttribute("href", dataStr);
         downloadAnchorNode.setAttribute("download", `rifa_backup_${new Date().toISOString().split('T')[0]}.json`);

@@ -1,0 +1,548 @@
+{
+  "10": {
+    "timestamp": {
+      "seconds": 1776948104,
+      "nanoseconds": 542000000
+    },
+    "buyer": "Carlos  C Castro Padilla ",
+    "phone": "3124860194",
+    "status": "reserved"
+  },
+  "11": {
+    "timestamp": {
+      "seconds": 1776947789,
+      "nanoseconds": 985000000
+    },
+    "buyer": "Claudia Ospina florez",
+    "phone": "3112227673",
+    "status": "sold"
+  },
+  "12": {
+    "status": "free"
+  },
+  "13": {
+    "timestamp": {
+      "seconds": 1776948393,
+      "nanoseconds": 810000000
+    },
+    "buyer": "Wicha Torrado",
+    "phone": "3152596441",
+    "status": "reserved"
+  },
+  "14": {
+    "phone": "3122454399",
+    "status": "reserved",
+    "timestamp": {
+      "seconds": 1776962443,
+      "nanoseconds": 397000000
+    },
+    "buyer": "Daniela"
+  },
+  "15": {
+    "phone": "3016647642",
+    "status": "reserved",
+    "timestamp": {
+      "seconds": 1776913204,
+      "nanoseconds": 291000000
+    },
+    "buyer": "Janer"
+  },
+  "16": {
+    "status": "free"
+  },
+  "17": {
+    "phone": "3176461258",
+    "status": "reserved",
+    "timestamp": {
+      "seconds": 1776944897,
+      "nanoseconds": 190000000
+    },
+    "buyer": "Rudy María "
+  },
+  "18": {
+    "status": "free"
+  },
+  "19": {
+    "status": "free"
+  },
+  "20": {
+    "status": "free"
+  },
+  "21": {
+    "status": "sold",
+    "phone": "3186171011",
+    "buyer": "Luis Hernando Lobo J{acome",
+    "timestamp": {
+      "seconds": 1776963047,
+      "nanoseconds": 144000000
+    }
+  },
+  "22": {
+    "buyer": "José Manuel Salcedo",
+    "timestamp": {
+      "seconds": 1776951617,
+      "nanoseconds": 488000000
+    },
+    "status": "reserved",
+    "phone": "3504564495"
+  },
+  "23": {
+    "phone": "31081106444",
+    "status": "reserved",
+    "timestamp": {
+      "seconds": 1776936506,
+      "nanoseconds": 520000000
+    },
+    "buyer": "William salazar "
+  },
+  "24": {
+    "status": "reserved",
+    "phone": "3002704760",
+    "buyer": "Andrés Carrascal ",
+    "timestamp": {
+      "seconds": 1776944773,
+      "nanoseconds": 714000000
+    }
+  },
+  "25": {
+    "buyer": "Julián Castro ",
+    "timestamp": {
+      "seconds": 1776983855,
+      "nanoseconds": 357000000
+    },
+    "status": "reserved",
+    "phone": "3166799604"
+  },
+  "26": {
+    "status": "free"
+  },
+  "27": {
+    "timestamp": {
+      "seconds": 1776951617,
+      "nanoseconds": 491000000
+    },
+    "buyer": "José Manuel Salcedo",
+    "phone": "3504564495",
+    "status": "reserved"
+  },
+  "28": {
+    "phone": "3103667147",
+    "status": "reserved",
+    "timestamp": {
+      "seconds": 1776916240,
+      "nanoseconds": 155000000
+    },
+    "buyer": "Evelio julio"
+  },
+  "29": {
+    "buyer": "José Alirio ",
+    "timestamp": {
+      "seconds": 1776946493,
+      "nanoseconds": 912000000
+    },
+    "status": "reserved",
+    "phone": "3107863655"
+  },
+  "30": {
+    "phone": "3143048757",
+    "status": "reserved",
+    "timestamp": {
+      "seconds": 1776983923,
+      "nanoseconds": 840000000
+    },
+    "buyer": "Yuliany Ferizolla"
+  },
+  "31": {
+    "phone": "3153502326",
+    "status": "reserved",
+    "timestamp": {
+      "seconds": 1776946133,
+      "nanoseconds": 200000000
+    },
+    "buyer": "José Chacón "
+  },
+  "32": {
+    "status": "free"
+  },
+  "33": {
+    "status": "free"
+  },
+  "34": {
+    "status": "free"
+  },
+  "35": {
+    "status": "free"
+  },
+  "36": {
+    "status": "free"
+  },
+  "37": {
+    "buyer": "Mario mora",
+    "timestamp": {
+      "seconds": 1776940418,
+      "nanoseconds": 452000000
+    },
+    "status": "sold",
+    "phone": "3134244768"
+  },
+  "38": {
+    "status": "free"
+  },
+  "39": {
+    "status": "free"
+  },
+  "40": {
+    "status": "free"
+  },
+  "41": {
+    "status": "sold",
+    "phone": "3114423957",
+    "buyer": "Balmer",
+    "timestamp": {
+      "seconds": 1776986478,
+      "nanoseconds": 19000000
+    }
+  },
+  "42": {
+    "status": "free"
+  },
+  "43": {
+    "status": "free"
+  },
+  "44": {
+    "status": "free"
+  },
+  "45": {
+    "status": "free"
+  },
+  "46": {
+    "phone": "31081106444",
+    "status": "reserved",
+    "timestamp": {
+      "seconds": 1776936506,
+      "nanoseconds": 522000000
+    },
+    "buyer": "William salazar "
+  },
+  "47": {
+    "status": "free"
+  },
+  "48": {
+    "buyer": "Julián Castro ",
+    "timestamp": {
+      "seconds": 1776983855,
+      "nanoseconds": 362000000
+    },
+    "status": "reserved",
+    "phone": "3166799604"
+  },
+  "49": {
+    "status": "free"
+  },
+  "50": {
+    "status": "free"
+  },
+  "51": {
+    "buyer": "Willinton Sanchez",
+    "status": "sold",
+    "phone": "3212116838"
+  },
+  "52": {
+    "status": "free"
+  },
+  "53": {
+    "status": "free"
+  },
+  "54": {
+    "status": "free"
+  },
+  "55": {
+    "status": "free"
+  },
+  "56": {
+    "buyer": "Carlos Leonardo Navarro Melo ",
+    "timestamp": {
+      "seconds": 1776947748,
+      "nanoseconds": 622000000
+    },
+    "status": "reserved",
+    "phone": "3142585162"
+  },
+  "57": {
+    "status": "free"
+  },
+  "58": {
+    "status": "reserved",
+    "phone": "3163394874",
+    "buyer": "Diana Bayona",
+    "timestamp": {
+      "seconds": 1776945538,
+      "nanoseconds": 531000000
+    }
+  },
+  "59": {
+    "status": "free"
+  },
+  "60": {
+    "status": "free"
+  },
+  "61": {
+    "status": "free"
+  },
+  "62": {
+    "status": "free"
+  },
+  "63": {
+    "status": "reserved",
+    "phone": "3143048757",
+    "buyer": "Yuliany Ferizolla",
+    "timestamp": {
+      "seconds": 1776983923,
+      "nanoseconds": 842000000
+    }
+  },
+  "64": {
+    "status": "free"
+  },
+  "65": {
+    "status": "free"
+  },
+  "66": {
+    "status": "free"
+  },
+  "67": {
+    "status": "free"
+  },
+  "68": {
+    "timestamp": {
+      "seconds": 1776944234,
+      "nanoseconds": 861000000
+    },
+    "buyer": "Lizardo Arévalo ",
+    "phone": "3102175993",
+    "status": "sold"
+  },
+  "69": {
+    "status": "free"
+  },
+  "70": {
+    "status": "free"
+  },
+  "71": {
+    "status": "free"
+  },
+  "72": {
+    "status": "free"
+  },
+  "73": {
+    "status": "free"
+  },
+  "74": {
+    "timestamp": {
+      "seconds": 1776936298,
+      "nanoseconds": 507000000
+    },
+    "buyer": "Erlin",
+    "phone": "3112679707",
+    "status": "sold"
+  },
+  "75": {
+    "phone": "3028028148",
+    "status": "reserved",
+    "timestamp": {
+      "seconds": 1776940534,
+      "nanoseconds": 733000000
+    },
+    "buyer": "Breimar vergel"
+  },
+  "76": {
+    "status": "free"
+  },
+  "77": {
+    "status": "free"
+  },
+  "78": {
+    "status": "free"
+  },
+  "79": {
+    "buyer": "Balmer",
+    "timestamp": {
+      "seconds": 1776986478,
+      "nanoseconds": 28000000
+    },
+    "status": "sold",
+    "phone": "3114423957"
+  },
+  "80": {
+    "status": "free"
+  },
+  "81": {
+    "status": "free"
+  },
+  "82": {
+    "status": "free"
+  },
+  "83": {
+    "phone": "3134244768",
+    "status": "sold",
+    "buyer": "Mario mora",
+    "timestamp": {
+      "seconds": 1776940587,
+      "nanoseconds": 490000000
+    }
+  },
+  "84": {
+    "status": "free"
+  },
+  "85": {
+    "status": "free"
+  },
+  "86": {
+    "timestamp": {
+      "seconds": 1776944234,
+      "nanoseconds": 862000000
+    },
+    "buyer": "Lizardo Arévalo ",
+    "phone": "3102175993",
+    "status": "sold"
+  },
+  "87": {
+    "status": "free"
+  },
+  "88": {
+    "status": "free"
+  },
+  "89": {
+    "status": "free"
+  },
+  "90": {
+    "timestamp": {
+      "seconds": 1776947855,
+      "nanoseconds": 308000000
+    },
+    "buyer": "Yimer ",
+    "phone": "3187037341",
+    "status": "reserved"
+  },
+  "91": {
+    "status": "free"
+  },
+  "92": {
+    "status": "free"
+  },
+  "93": {
+    "status": "free"
+  },
+  "94": {
+    "status": "free"
+  },
+  "95": {
+    "status": "free"
+  },
+  "96": {
+    "buyer": "Jorge Ascanio ",
+    "timestamp": {
+      "seconds": 1776946237,
+      "nanoseconds": 582000000
+    },
+    "status": "reserved",
+    "phone": "3105759458"
+  },
+  "97": {
+    "timestamp": {
+      "seconds": 1776962392,
+      "nanoseconds": 616000000
+    },
+    "buyer": "Nor Sánchez ",
+    "phone": "3209187979",
+    "status": "reserved"
+  },
+  "98": {
+    "buyer": "Lizardo Arévalo ",
+    "timestamp": {
+      "seconds": 1776944234,
+      "nanoseconds": 862000000
+    },
+    "status": "sold",
+    "phone": "3102175993"
+  },
+  "99": {
+    "timestamp": {
+      "seconds": 1776945538,
+      "nanoseconds": 533000000
+    },
+    "buyer": "Diana Bayona",
+    "phone": "3163394874",
+    "status": "reserved"
+  },
+  "00": {
+    "timestamp": {
+      "seconds": 1776944875,
+      "nanoseconds": 26000000
+    },
+    "buyer": "Andrés Carrascal ",
+    "phone": "3002704760",
+    "status": "reserved"
+  },
+  "01": {
+    "status": "free"
+  },
+  "02": {
+    "buyer": "Evelio julio",
+    "timestamp": {
+      "seconds": 1776916416,
+      "nanoseconds": 599000000
+    },
+    "status": "reserved",
+    "phone": "3103667147"
+  },
+  "03": {
+    "timestamp": {
+      "seconds": 1776824510,
+      "nanoseconds": 709000000
+    },
+    "status": "free"
+  },
+  "04": {
+    "status": "sold",
+    "phone": "3112227673",
+    "buyer": "Claudia Ospina florez",
+    "timestamp": {
+      "seconds": 1776947860,
+      "nanoseconds": 34000000
+    }
+  },
+  "05": {
+    "buyer": "Rudy María ",
+    "timestamp": {
+      "seconds": 1776944877,
+      "nanoseconds": 847000000
+    },
+    "status": "reserved",
+    "phone": "3176461258"
+  },
+  "06": {
+    "status": "free"
+  },
+  "07": {
+    "status": "reserved",
+    "phone": "3176461258",
+    "buyer": "Rudy María ",
+    "timestamp": {
+      "seconds": 1776913711,
+      "nanoseconds": 282000000
+    }
+  },
+  "08": {
+    "phone": "3016647642",
+    "status": "reserved",
+    "timestamp": {
+      "seconds": 1776913204,
+      "nanoseconds": 289000000
+    },
+    "buyer": "Janer"
+  },
+  "09": {
+    "status": "free"
+  }
+}
