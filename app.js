@@ -52,6 +52,12 @@ function init() {
     loadConfig();
     listenToNumbers();
     
+    // Ocultar Splash Screen después de 2.5 segundos
+    setTimeout(() => {
+        const splash = document.getElementById('splash-screen');
+        if (splash) splash.classList.add('hidden');
+    }, 2500);
+
     // Vincular botones de backup
     document.getElementById('btn-export-backup').onclick = () => {
         const fullBackup = {};
