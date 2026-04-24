@@ -46,53 +46,55 @@ async function saveLog(action, numbers, details) {
     } catch (e) { console.error("Error log:", e); }
 }
 
-document.getElementById('btn-export-backup').onclick = () => {
-    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(numbersData, null, 2));
-    const downloadAnchorNode = document.createElement('a');
-    downloadAnchorNode.setAttribute("href", dataStr);
-    downloadAnchorNode.setAttribute("download", `rifa_backup_${new Date().toISOString().split('T')[0]}.json`);
-    document.body.appendChild(downloadAnchorNode);
-    downloadAnchorNode.click();
-    downloadAnchorNode.remove();
-};
-
-document.getElementById('btn-import-backup-trigger').onclick = () => {
-    document.getElementById('import-backup-file').click();
-};
-
-document.getElementById('import-backup-file').onchange = (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = async (event) => {
-        try {
-            const data = JSON.parse(event.target.result);
-            if (confirm("¿ESTÁS SEGURO? Esto sobrescribirá los 100 números con los datos del archivo.")) {
-                const batch = db.batch();
-                for(let i=0; i<100; i++) {
-                    const id = i.toString().padStart(2, '0');
-                    const ref = db.collection("numbers").doc(id);
-                    if (data[id]) {
-                        batch.set(ref, data[id]);
-                    } else {
-                        batch.set(ref, { status: 'free' });
-                    }
-                }
-                await batch.commit();
-                alert("Base de datos restaurada correctamente");
-                saveLog('restore', Object.keys(data), { buyer: 'ADMIN_BACKUP' });
-            }
-        } catch (err) { alert("Error al procesar el archivo JSON"); }
-    };
-    reader.readAsText(file);
-};
-
 // --- INICIALIZACIÓN ---
 function init() {
     generateGrid();
     loadConfig();
     listenToNumbers();
-    setupAutoReport(); // Nueva función de monitoreo
+    setupAutoReport();
+    
+    // Vincular botones de backup
+    document.getElementById('btn-export-backup').onclick = () => {
+        if (Object.keys(numbersData).length === 0) return alert("Cargando datos, intenta en un segundo...");
+        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(numbersData, null, 2));
+        const downloadAnchorNode = document.createElement('a');
+        downloadAnchorNode.setAttribute("href", dataStr);
+        downloadAnchorNode.setAttribute("download", `rifa_backup_${new Date().toISOString().split('T')[0]}.json`);
+        document.body.appendChild(downloadAnchorNode);
+        downloadAnchorNode.click();
+        downloadAnchorNode.remove();
+    };
+
+    document.getElementById('btn-import-backup-trigger').onclick = () => {
+        document.getElementById('import-backup-file').click();
+    };
+
+    document.getElementById('import-backup-file').onchange = (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = async (event) => {
+            try {
+                const data = JSON.parse(event.target.result);
+                if (confirm("¿ESTÁS SEGURO? Esto sobrescribirá los 100 números con los datos del archivo.")) {
+                    const batch = db.batch();
+                    for(let i=0; i<100; i++) {
+                        const id = i.toString().padStart(2, '0');
+                        const ref = db.collection("numbers").doc(id);
+                        if (data[id]) {
+                            batch.set(ref, data[id]);
+                        } else {
+                            batch.set(ref, { status: 'free' });
+                        }
+                    }
+                    await batch.commit();
+                    alert("Base de datos restaurada correctamente");
+                    saveLog('restore', Object.keys(data), { buyer: 'ADMIN_BACKUP' });
+                }
+            } catch (err) { alert("Error al procesar el archivo JSON"); }
+        };
+        reader.readAsText(file);
+    };
 }
 
 function generateGrid() {
