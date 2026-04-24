@@ -341,21 +341,33 @@ function updateCellVisual(id, isSelected) {
 }
 
 function updateUI() {
+    const values = Object.values(numbersData);
+    const soldCount = values.filter(n => n.status === 'sold').length;
+    const reservedCount = values.filter(n => n.status === 'reserved').length;
+    const occupancyPercent = soldCount + reservedCount;
+
     const count = selectedNumbers.length;
     const total = count * 20000;
     document.getElementById('count-display').innerText = count;
     document.getElementById('total-display').innerText = total.toLocaleString();
-    btnReserveTrigger.disabled = count === 0;
+    btnReserveTrigger.disabled = (count === 0 && !isAdmin);
     
+    let baseText = "";
+    let progressColor = "var(--accent-blue)";
+    let emptyColor = "rgba(153, 27, 27, 0.8)"; // Rojo oscuro para lo libre
     if (isAdmin) {
-        btnReserveTrigger.innerText = count > 0 ? `GESTIONAR ${count} ELEGIDOS` : "SELECCIONA NÚMEROS";
-        btnReserveTrigger.style.background = "var(--accent-yellow)";
+        baseText = count > 0 ? `GESTIONAR ${count} ELEGIDOS` : "SELECCIONA NÚMEROS";
+        progressColor = "var(--accent-yellow)";
         btnReserveTrigger.style.color = "black";
     } else {
-        btnReserveTrigger.innerText = count > 0 ? `RESERVAR ${count} NÚMEROS` : "RESERVAR AHORA";
-        btnReserveTrigger.style.background = "var(--accent-blue)";
+        baseText = count > 0 ? `RESERVAR ${count} NÚMEROS` : "RESERVAR NÚMEROS AHORA";
+        progressColor = "var(--accent-blue)";
         btnReserveTrigger.style.color = "white";
     }
+    const separator = window.innerWidth < 600 ? '<br>' : '   —   ';
+    const percentColor = isAdmin ? "rgba(0,0,0,0.7)" : "var(--accent-yellow)";
+    btnReserveTrigger.innerHTML = `<span>${baseText}</span>${separator}<span style="font-size: 0.85em; color: ${percentColor}; font-weight: 800;">VENDIDOS EL ${occupancyPercent}%</span>`;
+    btnReserveTrigger.style.background = `linear-gradient(to right, ${progressColor} ${occupancyPercent}%, ${emptyColor} ${occupancyPercent}%)`;
 }
 
 // --- MODALES ---
@@ -565,6 +577,8 @@ function updateMiniStats() {
     document.getElementById('sold-display').innerText = sold;
     document.getElementById('reserved-display').innerText = reserved;
     document.getElementById('free-display').innerText = free;
+    
+    updateUI(); // Sincronizar porcentaje
 }
 
 let currentReportFilter = 'all';
