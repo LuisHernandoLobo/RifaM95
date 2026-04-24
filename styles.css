@@ -231,6 +231,22 @@ input { background: #020617; border: 1px solid var(--border-color); border-radiu
 
 /* --- LIST REPORT MODAL --- */
 .list-stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+/* Grids dentro de los modales (Por defecto PC: Grandes y 5 columnas) */
+#grid-reserved, #grid-sold {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    margin-top: 10px;
+}
+#grid-reserved .number-cell, #grid-sold .number-cell {
+    aspect-ratio: 1/1;
+    padding: 10px;
+}
+#grid-reserved .cell-number, #grid-sold .cell-number {
+    font-size: 1.5rem;
+}
+
 .list-stat-card { background: rgba(255,255,255,0.04); border: 1px solid var(--border-color); border-radius: 14px; padding: 12px; display: flex; flex-direction: column; align-items: center; gap: 2px; text-align: center; }
 .list-stat-card strong { font-size: 2rem; font-weight: 950; line-height: 1; }
 .list-stat-label { font-size: 0.6rem; font-weight: 900; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; }
