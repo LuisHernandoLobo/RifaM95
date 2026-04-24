@@ -148,6 +148,18 @@ header img { width: 22%; max-height: 14vh; object-fit: contain; cursor: pointer;
   .selection-summary-mini { padding: 6px 10px; gap: 8px; }
   .mini-stat strong { font-size: 1.4rem; }
   .mini-stat.total strong { font-size: 1.4rem; }
+
+  /* Ajuste para los grids dentro de los modales en móvil */
+  #grid-reserved, #grid-sold {
+      grid-template-columns: repeat(10, 1fr) !important;
+      gap: 4px !important;
+  }
+  #grid-reserved .number-cell, #grid-sold .number-cell {
+      padding: 2px !important;
+  }
+  #grid-reserved .cell-number, #grid-sold .cell-number {
+      font-size: 0.9rem !important;
+  }
 }
 
 /* SOLO EN VERTICAL: Cartón de 10 columnas con desplazamiento horizontal */
