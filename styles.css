@@ -116,23 +116,24 @@ header img { width: 22%; max-height: 14vh; object-fit: contain; cursor: pointer;
       margin-bottom: 115px;
   }
   .cell-number { 
-      font-size: 1.2rem; 
-      margin-top: -8px; /* SUBE EL NÚMERO */
+      font-size: 1.1rem; 
+      margin-top: -12px; /* SUBE EL NÚMERO UN POCO MÁS */
   }
   .cell-name { 
-      font-size: 0.55rem; 
+      font-size: 0.52rem; 
       font-weight: 800;
-      white-space: normal; /* PERMITE TRES LÍNEAS */
-      line-height: 1;
+      white-space: normal; 
+      line-height: 0.95; /* MÁS APRETADO PARA QUE QUEPA */
       text-align: center;
       display: -webkit-box;
       -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
       overflow: hidden;
+      margin-top: 2px;
   }
   .number-cell { 
       border-radius: 14px; 
-      padding: 4px 4px 12px 4px;
+      padding: 2px 2px 4px 2px; /* REDUCIDO PARA DAR ESPACIO */
   }
   .footer-actions { padding: 12px; }
   .btn-main { padding: 16px; font-size: 1.1rem; }
