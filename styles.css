@@ -152,6 +152,12 @@ header img { width: 22%; max-height: 14vh; object-fit: contain; cursor: pointer;
 
 /* SOLO EN VERTICAL: Cartón de 10 columnas con desplazamiento horizontal */
 @media (max-width: 600px) and (orientation: portrait) {
+  header {
+      min-width: 650px; /* Igual que el cartón */
+  }
+  .stats-cards-row {
+      min-width: 100%;
+  }
   .raffle-grid {
       grid-template-columns: repeat(10, 1fr); /* 10 columnas como en PC */
       gap: 5px;
