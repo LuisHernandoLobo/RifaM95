@@ -53,14 +53,28 @@ function init() {
     generateGrid();
     loadConfig();
     listenToNumbers();
-    
-    // Ocultar Splash Screen después de 2.5 segundos
-    setTimeout(() => {
-        const splash = document.getElementById('splash-screen');
-        if (splash) splash.classList.add('hidden');
-    }, 2500);
 
-    // Vincular botones de backup
+    // Lógica mejorada de Splash Screen
+    const splash = document.getElementById('splash-screen');
+    const splashImg = splash ? splash.querySelector('img') : null;
+
+    const hideSplash = () => {
+        setTimeout(() => {
+            if (splash) splash.classList.add('hidden');
+        }, 1500); // 1.5s después de cargar para que se aprecie
+    };
+
+    if (splashImg) {
+        if (splashImg.complete) {
+            hideSplash();
+        } else {
+            splashImg.onload = hideSplash;
+            // Backup por si la imagen falla o demora demasiado
+            setTimeout(hideSplash, 4000);
+        }
+    }
+
+    // Vincular botones de sorteo
     btnAdminDraw.onclick = () => { modalAdminDraw.style.display = 'flex'; };
     document.getElementById('btn-celebrate-winner').onclick = () => {
         const winInput = document.getElementById('draw-winner-num');
