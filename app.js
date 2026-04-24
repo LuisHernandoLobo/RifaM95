@@ -286,8 +286,8 @@ function highlightBuyerGroup(buyer, phone) {
     if (reservedNums.length > 0) {
         containerRes.style.display = 'block';
         gridRes.innerHTML = reservedNums.map(num => `
-            <div class="number-cell reserved" style="aspect-ratio: 1/1;">
-                <span class="cell-number" style="font-size: 1.5rem;">${num}</span>
+            <div class="number-cell reserved">
+                <span class="cell-number">${num}</span>
             </div>
         `).join('');
         const deuda = reservedNums.length * 20000;
@@ -302,8 +302,8 @@ function highlightBuyerGroup(buyer, phone) {
     if (soldNums.length > 0) {
         containerSold.style.display = 'block';
         gridSold.innerHTML = soldNums.map(num => `
-            <div class="number-cell sold" style="aspect-ratio: 1/1;">
-                <span class="cell-number" style="font-size: 1.5rem; color: #020617;">${num}</span>
+            <div class="number-cell sold">
+                <span class="cell-number">${num}</span>
             </div>
         `).join('');
     } else {

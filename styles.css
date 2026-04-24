@@ -152,13 +152,18 @@ header img { width: 22%; max-height: 14vh; object-fit: contain; cursor: pointer;
   /* Ajuste para los grids dentro de los modales en móvil */
   #grid-reserved, #grid-sold {
       grid-template-columns: repeat(10, 1fr) !important;
-      gap: 4px !important;
+      gap: 5px !important;
+      display: grid !important;
+      width: 100% !important;
   }
   #grid-reserved .number-cell, #grid-sold .number-cell {
-      padding: 2px !important;
+      padding: 0 !important;
+      aspect-ratio: 1/1 !important;
+      min-width: 0 !important;
   }
   #grid-reserved .cell-number, #grid-sold .cell-number {
-      font-size: 0.9rem !important;
+      font-size: 1rem !important;
+      margin: 0 !important;
   }
 }
 
