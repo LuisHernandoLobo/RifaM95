@@ -61,7 +61,7 @@ function init() {
     const hideSplash = () => {
         setTimeout(() => {
             if (splash) splash.classList.add('hidden');
-        }, 1500); // 1.5s después de cargar para que se aprecie
+        }, 4000); // 4 segundos para permitir la lectura
     };
 
     if (splashImg) {
