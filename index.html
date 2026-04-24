@@ -8,6 +8,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/png" href="logo-lhlj.png">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
 
 
@@ -26,7 +28,7 @@
       <h2>Gran Rifa de $1'000.000</h2>
       <div class="raffle-badges">
         <span class="badge badge-price">$20.000 / nro</span>
-        <span class="badge badge-admin">Móvil 95</span>
+        <span class="badge badge-admin"> - El Móvil 95 informara Fecha y Hora del sorteo</span>
       </div>
       <div style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 8px; font-weight: 700; text-transform: uppercase;">
         Puedes realizar el pago en: <span id="display-payment-info" style="color: var(--accent-green); font-weight: 800;"></span>
@@ -60,7 +62,22 @@
   <div class="footer-actions">
     <button id="btn-reserve-trigger" class="btn-main" disabled>RESERVAR NÚMEROS AHORA</button>
     <button id="btn-admin-broadcast" class="btn-main" style="display:none; background:var(--accent-yellow); color:black;">MENSAJE MASIVO</button>
+    <button id="btn-admin-draw" class="btn-main" style="display:none; background:linear-gradient(to right, #f59e0b, #ef4444); color:white;">SORTEO</button>
     <button id="btn-admin-settings" class="btn-main" style="display:none; background:#334155; max-width: 80px; font-size: 0.7rem;">AJUSTES</button>
+  </div>
+</div>
+
+<!-- AUDIO DE VICTORIA -->
+<audio id="win-sound" src="win.mp3"></audio>
+
+<!-- MODAL SORTEO GANADOR -->
+<div id="modal-admin-draw" class="modal">
+  <div class="modal-content card-popup">
+    <h3 style="color:var(--accent-yellow)">MODO SORTEO OFICIAL</h3>
+    <p style="font-size: 0.8rem; color: var(--text-secondary);">Ingresa el número que resultó ganador para celebrar:</p>
+    <input type="number" id="draw-winner-num" placeholder="00-99" min="0" max="99">
+    <button id="btn-celebrate-winner" class="btn-main" style="background:var(--accent-green)">CELEBRAR GANADOR 🏆</button>
+    <button onclick="closeModals()" class="btn-ghost">CANCELAR</button>
   </div>
 </div>
 

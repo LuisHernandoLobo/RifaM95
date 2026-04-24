@@ -16,6 +16,8 @@ const grid = document.getElementById('raffle-grid');
 const btnReserveTrigger = document.getElementById('btn-reserve-trigger');
 const btnAdminBroadcast = document.getElementById('btn-admin-broadcast');
 const btnAdminSettings = document.getElementById('btn-admin-settings');
+const btnAdminDraw = document.getElementById('btn-admin-draw');
+const modalAdminDraw = document.getElementById('modal-admin-draw');
 const modalUser = document.getElementById('modal-user');
 const modalAdminLogin = document.getElementById('modal-admin-login');
 const modalAdminAction = document.getElementById('modal-admin-action');
@@ -59,6 +61,47 @@ function init() {
     }, 2500);
 
     // Vincular botones de backup
+    btnAdminDraw.onclick = () => { modalAdminDraw.style.display = 'flex'; };
+    document.getElementById('btn-celebrate-winner').onclick = () => {
+        const winInput = document.getElementById('draw-winner-num');
+        let winNum = winInput.value;
+        if (winNum === "") return;
+        winNum = winNum.toString().padStart(2, '0');
+        
+        closeModals();
+        celebrate(winNum);
+    };
+
+    function celebrate(num) {
+        // Sonido
+        const sound = document.getElementById('win-sound');
+        if (sound) {
+            sound.currentTime = 0;
+            sound.play().catch(e => console.log("Audio block:", e));
+        }
+
+        // Confeti
+        const duration = 15 * 1000;
+        const animationEnd = Date.now() + duration;
+        const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 10000 };
+
+        const interval = setInterval(function() {
+            const timeLeft = animationEnd - Date.now();
+            if (timeLeft <= 0) return clearInterval(interval);
+
+            const particleCount = 50 * (timeLeft / duration);
+            confetti({ ...defaults, particleCount, origin: { x: Math.random(), y: Math.random() - 0.2 } });
+        }, 250);
+
+        // Resaltar visualmente el número ganador
+        const winCell = document.getElementById(`cell-${num}`);
+        if (winCell) {
+            winCell.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            winCell.classList.add('winner-highlight');
+            setTimeout(() => { winCell.classList.remove('winner-highlight'); }, 15000);
+        }
+    }
+
     document.getElementById('btn-export-backup').onclick = () => {
         const fullBackup = {};
         for (let i = 0; i < 100; i++) {
@@ -434,6 +477,7 @@ document.getElementById('btn-admin-login').onclick = () => {
     if (isAdmin) {
         isAdmin = false;
         btnAdminBroadcast.style.display = 'none';
+        btnAdminDraw.style.display = 'none';
         btnAdminSettings.style.display = 'none';
         document.body.classList.remove('admin-mode-active');
         selectedNumbers = [];
@@ -447,6 +491,7 @@ document.getElementById('btn-login-auth').onclick = async () => {
     if (pass === doc.data().adminPass) {
         isAdmin = true;
         btnAdminBroadcast.style.display = 'block';
+        btnAdminDraw.style.display = 'block';
         btnAdminSettings.style.display = 'block';
         document.body.classList.add('admin-mode-active');
         selectedNumbers = [];
@@ -491,6 +536,7 @@ window.closeModals = () => {
     modalAdminAction.style.display = 'none';
     modalAdminBroadcast.style.display = 'none';
     modalAdminSettings.style.display = 'none';
+    modalAdminDraw.style.display = 'none';
     modalImageFull.style.display = 'none';
     document.getElementById('modal-buyer-status').style.display = 'none';
     document.getElementById('modal-list-report').style.display = 'none';

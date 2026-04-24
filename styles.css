@@ -116,6 +116,21 @@ header img { width: 22%; max-height: 14vh; object-fit: contain; cursor: pointer;
   50% { box-shadow: 0 0 25px #00f2ff, inset 0 0 5px #00f2ff; }
   100% { box-shadow: 0 0 5px #00f2ff; }
 }
+
+.winner-highlight {
+    transform: scale(1.4) !important;
+    z-index: 1000 !important;
+    box-shadow: 0 0 100px #fbbf24 !important;
+    border: 5px solid #fff !important;
+    transition: all 0.5s ease;
+    animation: winner-glow 1s infinite alternate;
+}
+
+@keyframes winner-glow {
+    from { box-shadow: 0 0 50px #fbbf24; }
+    to { box-shadow: 0 0 120px #fbbf24, 0 0 20px #fff; }
+}
+
 .admin-mode-active .number-cell.selected { background: var(--accent-red) !important; box-shadow: 0 0 25px var(--accent-red); border-color: #fff; }
 .number-cell.sold { background: var(--accent-green); border-color: var(--accent-green); }
 .number-cell.sold .cell-number, .number-cell.sold .cell-name { color: #020617 !important; font-weight: 950; }
