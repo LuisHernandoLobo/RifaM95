@@ -32,6 +32,61 @@ let numbersData = {};
 let lastHighlightedBuyer = null;
 let isInitialLoad = true; // Control para el reporte automático
 
+// --- LOGS Y BACKUP ---
+async function saveLog(action, numbers, details) {
+    try {
+        await db.collection("logs").add({
+            timestamp: new Date(),
+            action: action, // 'reserve', 'sold', 'free', 'update', 'restore'
+            numbers: numbers,
+            buyer: details.buyer || "",
+            phone: details.phone || "",
+            admin: isAdmin
+        });
+    } catch (e) { console.error("Error log:", e); }
+}
+
+document.getElementById('btn-export-backup').onclick = () => {
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(numbersData, null, 2));
+    const downloadAnchorNode = document.createElement('a');
+    downloadAnchorNode.setAttribute("href", dataStr);
+    downloadAnchorNode.setAttribute("download", `rifa_backup_${new Date().toISOString().split('T')[0]}.json`);
+    document.body.appendChild(downloadAnchorNode);
+    downloadAnchorNode.click();
+    downloadAnchorNode.remove();
+};
+
+document.getElementById('btn-import-backup-trigger').onclick = () => {
+    document.getElementById('import-backup-file').click();
+};
+
+document.getElementById('import-backup-file').onchange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = async (event) => {
+        try {
+            const data = JSON.parse(event.target.result);
+            if (confirm("¿ESTÁS SEGURO? Esto sobrescribirá los 100 números con los datos del archivo.")) {
+                const batch = db.batch();
+                for(let i=0; i<100; i++) {
+                    const id = i.toString().padStart(2, '0');
+                    const ref = db.collection("numbers").doc(id);
+                    if (data[id]) {
+                        batch.set(ref, data[id]);
+                    } else {
+                        batch.set(ref, { status: 'free' });
+                    }
+                }
+                await batch.commit();
+                alert("Base de datos restaurada correctamente");
+                saveLog('restore', Object.keys(data), { buyer: 'ADMIN_BACKUP' });
+            }
+        } catch (err) { alert("Error al procesar el archivo JSON"); }
+    };
+    reader.readAsText(file);
+};
+
 // --- INICIALIZACIÓN ---
 function init() {
     generateGrid();
@@ -267,6 +322,7 @@ document.getElementById('btn-confirm-reserve').onclick = async () => {
 
     try {
         await batch.commit();
+        saveLog('reserve', selectionToProcess, { buyer: name, phone: phone });
         
         // 1. Mensaje para el ADMINISTRADOR
         const msgAdmin = `Hola, soy ${name}. Aparté los números: ${selectionToProcess.sort().join(', ')}. Total: $${total.toLocaleString()}. Fecha: ${now}`;
@@ -316,6 +372,7 @@ window.setNumberStatus = async (newStatus) => {
 
     try {
         await batch.commit();
+        saveLog(newStatus, selectionToProcess, { buyer: newName, phone: newPhone });
         if (newStatus === 'free') {
             phonesToNotify.forEach((info, phone) => {
                 const msg = `Hola ${info.buyer}, los números ${info.nums.join(', ')} han sido LIBERADOS.`;
@@ -341,6 +398,7 @@ document.getElementById('btn-admin-save-data').onclick = async () => {
 
     try {
         await batch.commit();
+        saveLog('update_info', selectionToProcess, { buyer: newName, phone: newPhone });
     } catch (e) { alert("Error"); }
 };
 

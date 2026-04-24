@@ -76,6 +76,17 @@
       <p style="font-size: 0.65rem; color: #aaa; margin-top: 5px;">Estos datos se enviarán automáticamente al comprador en su mensaje de confirmación.</p>
     </div>
     <button id="btn-save-admin-config" class="btn-main" style="background:var(--accent-green)">GUARDAR AJUSTES</button>
+    
+    <div style="margin-top: 20px; border-top: 1px solid var(--border-color); padding-top: 15px;">
+        <h4 style="font-size: 0.8rem; color: var(--accent-blue); margin-bottom: 10px; text-transform: uppercase;">Copias de Seguridad</h4>
+        <div style="display: flex; gap: 10px;">
+            <button id="btn-export-backup" class="btn-status free" style="flex:1; font-size: 0.7rem; padding: 10px;">EXPORTAR BACKUP</button>
+            <button id="btn-import-backup-trigger" class="btn-status free" style="flex:1; font-size: 0.7rem; padding: 10px;">RESTAURAR BACKUP</button>
+        </div>
+        <input type="file" id="import-backup-file" style="display:none;" accept=".json">
+        <p style="font-size: 0.6rem; color: #666; margin-top: 8px; text-align: center;">El backup descarga un archivo JSON con el estado actual de los 100 números.</p>
+    </div>
+
     <button onclick="closeModals()" class="btn-ghost">CANCELAR</button>
   </div>
 </div>
