@@ -4,16 +4,16 @@
       "seconds": 1776948104,
       "nanoseconds": 542000000
     },
-    "buyer": "Carlos  C Castro Padilla ",
     "phone": "3124860194",
-    "status": "reserved"
+    "status": "reserved",
+    "buyer": "Carlos  C Castro Padilla "
   },
   "11": {
+    "buyer": "Claudia Ospina florez",
     "timestamp": {
       "seconds": 1776947789,
       "nanoseconds": 985000000
     },
-    "buyer": "Claudia Ospina florez",
     "phone": "3112227673",
     "status": "sold"
   },
@@ -21,13 +21,13 @@
     "status": "free"
   },
   "13": {
+    "phone": "3152596441",
+    "status": "reserved",
     "timestamp": {
       "seconds": 1776948393,
       "nanoseconds": 810000000
     },
-    "buyer": "Wicha Torrado",
-    "phone": "3152596441",
-    "status": "reserved"
+    "buyer": "Wicha Torrado"
   },
   "14": {
     "phone": "3122454399",
@@ -39,24 +39,24 @@
     "buyer": "Daniela"
   },
   "15": {
-    "phone": "3016647642",
-    "status": "reserved",
     "timestamp": {
       "seconds": 1776913204,
       "nanoseconds": 291000000
     },
+    "phone": "3016647642",
+    "status": "reserved",
     "buyer": "Janer"
   },
   "16": {
     "status": "free"
   },
   "17": {
-    "phone": "3176461258",
-    "status": "reserved",
     "timestamp": {
       "seconds": 1776944897,
       "nanoseconds": 190000000
     },
+    "status": "reserved",
+    "phone": "3176461258",
     "buyer": "Rudy María "
   },
   "18": {
@@ -69,22 +69,22 @@
     "status": "free"
   },
   "21": {
-    "status": "sold",
     "phone": "3186171011",
-    "buyer": "Luis Hernando Lobo J{acome",
+    "status": "sold",
     "timestamp": {
       "seconds": 1776963047,
       "nanoseconds": 144000000
-    }
+    },
+    "buyer": "Luis Hernando Lobo J{acome"
   },
   "22": {
-    "buyer": "José Manuel Salcedo",
     "timestamp": {
       "seconds": 1776951617,
       "nanoseconds": 488000000
     },
+    "phone": "3504564495",
     "status": "reserved",
-    "phone": "3504564495"
+    "buyer": "José Manuel Salcedo"
   },
   "23": {
     "phone": "31081106444",
@@ -96,9 +96,9 @@
     "buyer": "William salazar "
   },
   "24": {
+    "buyer": "Andrés Carrascal ",
     "status": "reserved",
     "phone": "3002704760",
-    "buyer": "Andrés Carrascal ",
     "timestamp": {
       "seconds": 1776944773,
       "nanoseconds": 714000000
@@ -106,50 +106,50 @@
   },
   "25": {
     "buyer": "Julián Castro ",
+    "status": "reserved",
+    "phone": "3166799604",
     "timestamp": {
       "seconds": 1776983855,
       "nanoseconds": 357000000
-    },
-    "status": "reserved",
-    "phone": "3166799604"
+    }
   },
   "26": {
     "status": "free"
   },
   "27": {
+    "phone": "3504564495",
+    "status": "reserved",
     "timestamp": {
       "seconds": 1776951617,
       "nanoseconds": 491000000
     },
-    "buyer": "José Manuel Salcedo",
-    "phone": "3504564495",
-    "status": "reserved"
+    "buyer": "José Manuel Salcedo"
   },
   "28": {
-    "phone": "3103667147",
-    "status": "reserved",
     "timestamp": {
       "seconds": 1776916240,
       "nanoseconds": 155000000
     },
+    "phone": "3103667147",
+    "status": "reserved",
     "buyer": "Evelio julio"
   },
   "29": {
-    "buyer": "José Alirio ",
     "timestamp": {
       "seconds": 1776946493,
       "nanoseconds": 912000000
     },
+    "phone": "3107863655",
     "status": "reserved",
-    "phone": "3107863655"
+    "buyer": "José Alirio "
   },
   "30": {
-    "phone": "3143048757",
-    "status": "reserved",
     "timestamp": {
       "seconds": 1776983923,
       "nanoseconds": 840000000
     },
+    "status": "reserved",
+    "phone": "3143048757",
     "buyer": "Yuliany Ferizolla"
   },
   "31": {
@@ -195,13 +195,13 @@
     "status": "free"
   },
   "41": {
-    "status": "sold",
-    "phone": "3114423957",
     "buyer": "Balmer",
     "timestamp": {
       "seconds": 1776986478,
       "nanoseconds": 19000000
-    }
+    },
+    "status": "sold",
+    "phone": "3114423957"
   },
   "42": {
     "status": "free"
@@ -216,25 +216,25 @@
     "status": "free"
   },
   "46": {
-    "phone": "31081106444",
-    "status": "reserved",
     "timestamp": {
       "seconds": 1776936506,
       "nanoseconds": 522000000
     },
+    "phone": "31081106444",
+    "status": "reserved",
     "buyer": "William salazar "
   },
   "47": {
     "status": "free"
   },
   "48": {
-    "buyer": "Julián Castro ",
     "timestamp": {
       "seconds": 1776983855,
       "nanoseconds": 362000000
     },
+    "phone": "3166799604",
     "status": "reserved",
-    "phone": "3166799604"
+    "buyer": "Julián Castro "
   },
   "49": {
     "status": "free"
@@ -243,9 +243,9 @@
     "status": "free"
   },
   "51": {
-    "buyer": "Willinton Sanchez",
     "status": "sold",
-    "phone": "3212116838"
+    "phone": "3212116838",
+    "buyer": "Willinton Sanchez"
   },
   "52": {
     "status": "free"
@@ -260,25 +260,25 @@
     "status": "free"
   },
   "56": {
-    "buyer": "Carlos Leonardo Navarro Melo ",
     "timestamp": {
       "seconds": 1776947748,
       "nanoseconds": 622000000
     },
+    "phone": "3142585162",
     "status": "reserved",
-    "phone": "3142585162"
+    "buyer": "Carlos Leonardo Navarro Melo "
   },
   "57": {
     "status": "free"
   },
   "58": {
-    "status": "reserved",
-    "phone": "3163394874",
-    "buyer": "Diana Bayona",
     "timestamp": {
       "seconds": 1776945538,
       "nanoseconds": 531000000
-    }
+    },
+    "phone": "3163394874",
+    "status": "reserved",
+    "buyer": "Diana Bayona"
   },
   "59": {
     "status": "free"
@@ -293,13 +293,13 @@
     "status": "free"
   },
   "63": {
-    "status": "reserved",
-    "phone": "3143048757",
-    "buyer": "Yuliany Ferizolla",
     "timestamp": {
       "seconds": 1776983923,
       "nanoseconds": 842000000
-    }
+    },
+    "phone": "3143048757",
+    "status": "reserved",
+    "buyer": "Yuliany Ferizolla"
   },
   "64": {
     "status": "free"
@@ -314,13 +314,13 @@
     "status": "free"
   },
   "68": {
+    "phone": "3102175993",
+    "status": "sold",
     "timestamp": {
       "seconds": 1776944234,
       "nanoseconds": 861000000
     },
-    "buyer": "Lizardo Arévalo ",
-    "phone": "3102175993",
-    "status": "sold"
+    "buyer": "Lizardo Arévalo "
   },
   "69": {
     "status": "free"
@@ -338,13 +338,13 @@
     "status": "free"
   },
   "74": {
+    "buyer": "Erlin",
+    "phone": "3112679707",
+    "status": "sold",
     "timestamp": {
       "seconds": 1776936298,
       "nanoseconds": 507000000
-    },
-    "buyer": "Erlin",
-    "phone": "3112679707",
-    "status": "sold"
+    }
   },
   "75": {
     "phone": "3028028148",
@@ -365,13 +365,13 @@
     "status": "free"
   },
   "79": {
-    "buyer": "Balmer",
     "timestamp": {
       "seconds": 1776986478,
       "nanoseconds": 28000000
     },
+    "phone": "3114423957",
     "status": "sold",
-    "phone": "3114423957"
+    "buyer": "Balmer"
   },
   "80": {
     "status": "free"
@@ -383,9 +383,9 @@
     "status": "free"
   },
   "83": {
+    "buyer": "Mario mora",
     "phone": "3134244768",
     "status": "sold",
-    "buyer": "Mario mora",
     "timestamp": {
       "seconds": 1776940587,
       "nanoseconds": 490000000
@@ -398,13 +398,13 @@
     "status": "free"
   },
   "86": {
+    "buyer": "Lizardo Arévalo ",
     "timestamp": {
       "seconds": 1776944234,
       "nanoseconds": 862000000
     },
-    "buyer": "Lizardo Arévalo ",
-    "phone": "3102175993",
-    "status": "sold"
+    "status": "sold",
+    "phone": "3102175993"
   },
   "87": {
     "status": "free"
@@ -416,13 +416,13 @@
     "status": "free"
   },
   "90": {
+    "buyer": "Yimer ",
     "timestamp": {
       "seconds": 1776947855,
       "nanoseconds": 308000000
     },
-    "buyer": "Yimer ",
-    "phone": "3187037341",
-    "status": "reserved"
+    "status": "reserved",
+    "phone": "3187037341"
   },
   "91": {
     "status": "free"
@@ -440,61 +440,61 @@
     "status": "free"
   },
   "96": {
-    "buyer": "Jorge Ascanio ",
     "timestamp": {
       "seconds": 1776946237,
       "nanoseconds": 582000000
     },
+    "phone": "3105759458",
     "status": "reserved",
-    "phone": "3105759458"
+    "buyer": "Jorge Ascanio "
   },
   "97": {
+    "buyer": "Nor Sánchez ",
+    "phone": "3209187979",
+    "status": "reserved",
     "timestamp": {
       "seconds": 1776962392,
       "nanoseconds": 616000000
-    },
-    "buyer": "Nor Sánchez ",
-    "phone": "3209187979",
-    "status": "reserved"
+    }
   },
   "98": {
-    "buyer": "Lizardo Arévalo ",
+    "status": "sold",
+    "phone": "3102175993",
     "timestamp": {
       "seconds": 1776944234,
       "nanoseconds": 862000000
     },
-    "status": "sold",
-    "phone": "3102175993"
+    "buyer": "Lizardo Arévalo "
   },
   "99": {
+    "status": "reserved",
+    "phone": "3163394874",
     "timestamp": {
       "seconds": 1776945538,
       "nanoseconds": 533000000
     },
-    "buyer": "Diana Bayona",
-    "phone": "3163394874",
-    "status": "reserved"
+    "buyer": "Diana Bayona"
   },
   "00": {
     "timestamp": {
       "seconds": 1776944875,
       "nanoseconds": 26000000
     },
-    "buyer": "Andrés Carrascal ",
     "phone": "3002704760",
-    "status": "reserved"
+    "status": "reserved",
+    "buyer": "Andrés Carrascal "
   },
   "01": {
     "status": "free"
   },
   "02": {
     "buyer": "Evelio julio",
+    "status": "reserved",
+    "phone": "3103667147",
     "timestamp": {
       "seconds": 1776916416,
       "nanoseconds": 599000000
-    },
-    "status": "reserved",
-    "phone": "3103667147"
+    }
   },
   "03": {
     "timestamp": {
@@ -504,13 +504,13 @@
     "status": "free"
   },
   "04": {
-    "status": "sold",
-    "phone": "3112227673",
-    "buyer": "Claudia Ospina florez",
     "timestamp": {
       "seconds": 1776947860,
       "nanoseconds": 34000000
-    }
+    },
+    "phone": "3112227673",
+    "status": "sold",
+    "buyer": "Claudia Ospina florez"
   },
   "05": {
     "buyer": "Rudy María ",
@@ -525,22 +525,22 @@
     "status": "free"
   },
   "07": {
-    "status": "reserved",
-    "phone": "3176461258",
     "buyer": "Rudy María ",
+    "phone": "3176461258",
+    "status": "reserved",
     "timestamp": {
       "seconds": 1776913711,
       "nanoseconds": 282000000
     }
   },
   "08": {
+    "buyer": "Janer",
     "phone": "3016647642",
     "status": "reserved",
     "timestamp": {
       "seconds": 1776913204,
       "nanoseconds": 289000000
-    },
-    "buyer": "Janer"
+    }
   },
   "09": {
     "status": "free"

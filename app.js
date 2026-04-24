@@ -51,7 +51,6 @@ function init() {
     generateGrid();
     loadConfig();
     listenToNumbers();
-    setupAutoReport();
     
     // Vincular botones de backup
     document.getElementById('btn-export-backup').onclick = () => {
@@ -332,17 +331,19 @@ document.getElementById('btn-confirm-reserve').onclick = async () => {
         await batch.commit();
         saveLog('reserve', selectionToProcess, { buyer: name, phone: phone });
         
-        // 1. Mensaje para el ADMINISTRADOR
-        const msgAdmin = `Hola, soy ${name}. Aparté los números: ${selectionToProcess.sort().join(', ')}. Total: $${total.toLocaleString()}. Fecha: ${now}`;
-        window.open(`https://wa.me/${adminWhatsApp}?text=${encodeURIComponent(msgAdmin)}`, '_blank');
+        const sortedNums = selectionToProcess.sort().join(', ');
+        const isPlural = selectionToProcess.length > 1;
+        const textNum = isPlural ? 'los números' : 'el número';
+        const totalFmt = total.toLocaleString();
 
-        // 2. Mensaje para el COMPRADOR (Con delay de 2 seg para evitar bloqueos de navegador)
-        setTimeout(() => {
-            let payMsg = `Por favor realiza tu consignación aquí: ${adminPaymentInfo}.`;
-            if (adminCashInfo) payMsg += ` O paga en efectivo a: ${adminCashInfo}.`;
-            const msgBuyer = `¡Hola ${name}! Has reservado los números: ${selectionToProcess.sort().join(', ')}. Total a pagar: $${total.toLocaleString()}. ${payMsg} Envía el comprobante por este medio.`;
-            window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msgBuyer)}`, '_blank');
-        }, 2000);
+        // MENSAJE UNIFICADO (Se envía al Administrador, pero sirve de recordatorio al Cliente)
+        let payMsg = `💰 *Puedes realizar tu pago aquí:* \n${adminPaymentInfo}`;
+        if (adminCashInfo) payMsg += `\n\n💵 *O en efectivo con:* \n${adminCashInfo}`;
+
+        const msgFull = `✅ *NUEVA RESERVA DE RIFA*\n\nHola, soy *${name}*.\nHe apartado ${textNum}: *${sortedNums}*.\n\n💵 *Total a pagar:* *$${totalFmt}*\n\n${payMsg}\n\n🙏 *Adjunto el comprobante de pago para confirmar mis números.*\n\n🚀 Consulta la tabla actualizada aquí:\nhttps://luishernandolobo.github.io/RifaM95/`;
+        
+        // Abrir WhatsApp dirigido al Administrador
+        window.open(`https://wa.me/${adminWhatsApp}?text=${encodeURIComponent(msgFull)}`, '_blank');
 
     } catch (e) { alert("Error al guardar reserva"); }
 };
@@ -355,6 +356,14 @@ window.setNumberStatus = async (newStatus) => {
     const batch = db.batch();
     const phonesToNotify = new Map();
 
+    if (newPhone) {
+        phonesToNotify.set(newPhone, { 
+            buyer: newName, 
+            nums: selectionToProcess.sort().join(', '),
+            isPlural: selectionToProcess.length > 1
+        });
+    }
+
     closeModals();
     selectedNumbers = [];
     updateUI();
@@ -362,12 +371,6 @@ window.setNumberStatus = async (newStatus) => {
     selectionToProcess.forEach(id => {
         const updateData = { status: newStatus };
         if (newStatus === 'free') {
-            const data = numbersData[id] || {};
-            if (data.phone) {
-                const existing = phonesToNotify.get(data.phone) || { buyer: data.buyer, nums: [] };
-                existing.nums.push(id);
-                phonesToNotify.set(data.phone, existing);
-            }
             updateData.buyer = firebase.firestore.FieldValue.delete();
             updateData.phone = firebase.firestore.FieldValue.delete();
             updateData.timestamp = firebase.firestore.FieldValue.delete();
@@ -381,13 +384,18 @@ window.setNumberStatus = async (newStatus) => {
     try {
         await batch.commit();
         saveLog(newStatus, selectionToProcess, { buyer: newName, phone: newPhone });
-        if (newStatus === 'free') {
+        
+        if (newStatus !== 'reserved') {
             phonesToNotify.forEach((info, phone) => {
-                const msg = `Hola ${info.buyer}, los números ${info.nums.join(', ')} han sido LIBERADOS.`;
+                const textNum = info.isPlural ? 'Tus números' : 'Tu número';
+                const estadoTxt = newStatus === 'sold' ? '✅ *PAGADO (Ya estás jugando)*' : '❌ *LIBERADO (Disponible nuevamente)*';
+                
+                const msg = `Hola *${info.buyer}*,\n\n${textNum} *${info.nums}* han cambiado de estado a:\n${estadoTxt}\n\n🚀 Puedes ver el estado de la rifa aquí:\nhttps://luishernandolobo.github.io/RifaM95/`;
+                
                 window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
             });
         }
-    } catch (e) { alert("Error"); }
+    } catch (e) { alert("Error al actualizar"); }
 };
 
 document.getElementById('btn-admin-save-data').onclick = async () => {
@@ -468,33 +476,8 @@ document.getElementById('btn-save-admin-config').onclick = async () => {
     } catch (e) { alert("Error al guardar"); }
 };
 
-// --- REPORTE AUTOMÁTICO ---
-function setupAutoReport() {
-    db.collection("numbers").onSnapshot((snapshot) => {
-        if (isInitialLoad) {
-            isInitialLoad = false;
-            return;
-        }
-
-        let reporte = "*REPORTE DE CAMBIO EN BASE DE DATOS*\n\n";
-        let hayDatos = false;
-
-        snapshot.docChanges().forEach((change) => {
-            if (change.type === "added" || change.type === "modified") {
-                const d = change.doc.data();
-                const id = change.doc.id;
-                reporte += `📌 *Número:* ${id}\n   - Estado: ${d.status}\n   - Comprador: ${d.buyer || 'Sin nombre'}\n\n`;
-                hayDatos = true;
-            }
-        });
-
-        if (hayDatos) {
-            // El mensaje se envía a tu número personal Luis
-            const urlReporte = `https://wa.me/573186171011?text=${encodeURIComponent(reporte)}`;
-            window.open(urlReporte, '_blank');
-        }
-    });
-}
+// --- REPORTE AUTOMÁTICO DESACTIVADO ---
+function setupAutoReport() { }
 
 window.closeModals = () => {
     modalUser.style.display = 'none';
