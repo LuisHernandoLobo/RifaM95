@@ -54,7 +54,21 @@ header img { width: 22%; max-height: 14vh; object-fit: contain; cursor: pointer;
 .raffle-grid { display: grid; grid-template-columns: repeat(10, 1fr); gap: 5px; padding: 6px; background: #0f172a; border-radius: 15px; margin-bottom: 95px; }
 .number-cell { aspect-ratio: 1/1; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1px solid var(--border-color); border-radius: 10px; background: #020617; cursor: pointer; overflow: hidden; padding: 2px; }
 .cell-number { font-size: 2.8rem; /* MÁS GRANDE EN PC */ font-weight: 950; color: var(--accent-blue); line-height: 1; }
-.cell-name { font-size: 0.75rem; font-weight: 800; color: #fff; text-transform: uppercase; max-width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 3px; }
+.cell-name { 
+  font-size: 0.75rem; 
+  font-weight: 800; 
+  color: #fff; 
+  text-transform: uppercase; 
+  max-width: 100%; 
+  white-space: normal; 
+  line-height: 1;
+  text-align: center;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden; 
+  margin-top: 3px; 
+}
 
 .number-cell.selected { background: var(--accent-blue) !important; border-color: #fff; transform: scale(1.08); z-index: 5; box-shadow: 0 0 20px rgba(59, 130, 246, 0.6); }
 .number-cell.selected .cell-number, .number-cell.selected .cell-name { color: #fff !important; }
@@ -108,11 +122,11 @@ header img { width: 22%; max-height: 14vh; object-fit: contain; cursor: pointer;
   .cell-name { 
       font-size: 0.55rem; 
       font-weight: 800;
-      white-space: normal; /* PERMITE DOS LÍNEAS */
-      line-height: 1.1;
+      white-space: normal; /* PERMITE TRES LÍNEAS */
+      line-height: 1;
       text-align: center;
       display: -webkit-box;
-      -webkit-line-clamp: 2;
+      -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
       overflow: hidden;
   }
