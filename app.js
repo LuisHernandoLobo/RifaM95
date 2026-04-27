@@ -344,7 +344,10 @@ function updateUI() {
     const values = Object.values(numbersData);
     const soldCount = values.filter(n => n.status === 'sold').length;
     const reservedCount = values.filter(n => n.status === 'reserved').length;
-    const occupancyPercent = soldCount + reservedCount;
+    
+    // Porcentajes para el gradiente (asumiendo 100 números)
+    const pSold = soldCount;
+    const pReserved = soldCount + reservedCount;
 
     const count = selectedNumbers.length;
     const total = count * 20000;
@@ -353,21 +356,34 @@ function updateUI() {
     btnReserveTrigger.disabled = (count === 0 && !isAdmin);
     
     let baseText = "";
-    let progressColor = "var(--accent-blue)";
-    let emptyColor = "rgba(153, 27, 27, 0.8)"; // Rojo oscuro para lo libre
+    // Color de texto oscuro para que resalte sobre el gradiente brillante
+    const contrastTextColor = "var(--bg-primary)"; 
+    
     if (isAdmin) {
         baseText = count > 0 ? `GESTIONAR ${count} ELEGIDOS` : "SELECCIONA NÚMEROS";
-        progressColor = "var(--accent-yellow)";
-        btnReserveTrigger.style.color = "black";
+        btnReserveTrigger.style.color = contrastTextColor;
     } else {
         baseText = count > 0 ? `RESERVAR ${count} NÚMEROS` : "RESERVAR NÚMEROS AHORA";
-        progressColor = "var(--accent-blue)";
-        btnReserveTrigger.style.color = "white";
+        btnReserveTrigger.style.color = contrastTextColor;
     }
+
     const separator = window.innerWidth < 600 ? '<br>' : '   —   ';
-    const percentColor = isAdmin ? "rgba(0,0,0,0.7)" : "var(--accent-yellow)";
-    btnReserveTrigger.innerHTML = `<span>${baseText}</span>${separator}<span style="font-size: 0.85em; color: ${percentColor}; font-weight: 800;">VENDIDOS EL ${occupancyPercent}%</span>`;
-    btnReserveTrigger.style.background = `linear-gradient(to right, ${progressColor} ${occupancyPercent}%, ${emptyColor} ${occupancyPercent}%)`;
+    // Usamos un color oscuro semi-transparente para el porcentaje para que sea legible siempre
+    const percentColor = "rgba(2, 6, 23, 0.7)"; 
+    
+    // Actualizar texto del botón con el porcentaje de ocupación total
+    const totalOccupancy = soldCount + reservedCount;
+    btnReserveTrigger.innerHTML = `<span>${baseText}</span>${separator}<span style="font-size: 0.85em; color: ${percentColor}; font-weight: 900;">OCUPADO EL ${totalOccupancy}%</span>`;
+    
+    // Gradiente de 3 colores: Verde (Vendidos), Amarillo (Apartados), Azul (Libres)
+    const colorSold = "var(--accent-green)";
+    const colorReserved = "var(--accent-yellow)";
+    const colorFree = "var(--accent-blue)";
+
+    btnReserveTrigger.style.background = `linear-gradient(to right, 
+        ${colorSold} 0%, ${colorSold} ${pSold}%, 
+        ${colorReserved} ${pSold}%, ${colorReserved} ${pReserved}%, 
+        ${colorFree} ${pReserved}%, ${colorFree} 100%)`;
 }
 
 // --- MODALES ---
