@@ -1,0 +1,70 @@
+REPORTE DE VENTAS - RIFA LHLJ
+==========================================
+Fecha: 26/4/2026, 23:22:09
+==========================================
+
+--- VENDIDOS ---
+00 | Andrés Carrascal  | 3002704760
+02 | Evelio julio | 3103667147
+04 | Claudia Ospina florez | 3112227673
+11 | Claudia Ospina florez | 3112227673
+18 | Mario Alejandro Mora | 3134244768
+21 | Luis Hernando Lobo Jácome | 3186171011
+24 | Andrés Carrascal  | 3002704760
+28 | Evelio julio | 3103667147
+29 | José Alirio  | 3107863655
+37 | Mario Alejandro Mora | 3134244768
+41 | Balmer | 3114423957
+51 | Willinton Sanchez | 3212116838
+53 | Jorge Ballesteros  | 3144370407
+56 | Carlos Leonardo Navarro Melo  | 3142585162
+61 | Jorge Ballesteros  | 3144370407
+68 | Lizardo Arévalo  | 3102175993
+70 | Jorge Ballesteros  | 3144370407
+72 | Cristhian Navarro  | 3043835215
+74 | Erlin | 3112679707
+75 | Breimar vergel | 3028028148
+79 | Balmer | 3114423957
+83 | Mario Alejandro Mora | 3134244768
+86 | Lizardo Arévalo  | 3102175993
+93 | Hender Chacón | 3239313837
+98 | Lizardo Arévalo  | 3102175993
+
+--- APARTADOS ---
+03 | José William Salazar  | 3156738805
+05 | Rudy María | 3176461258
+07 | Rudy María | 3176461258
+08 | Janer | 3016647642
+09 | Jhan carlos | 3214304910
+10 | Carlos  C Castro Padilla  | 3124860194
+12 | Mauricio Angarita | 3187090511
+13 | Wicha Torrado | 3152596441
+14 | Daniela | 3122454399
+15 | Janer | 3016647642
+16 | Wilton pico valcarcel | 3204959673
+17 | Rudy María | 3176461258
+22 | José Manuel Salcedo | 3504564495
+23 | William salazar  | 31081106444
+25 | Julián Castro  | 3166799604
+26 | Eduardo coronel  | 3155494222
+27 | José Manuel Salcedo | 3504564495
+30 | Yuliany Ferizolla | 3143048757
+31 | José Chacón  | 3153502326
+36 | Nairon cafe | 312763368
+46 | William salazar  | 31081106444
+47 | Alexander Gonzalez | 3102359696
+48 | Julián Castro  | 3166799604
+50 | Jorge ruedas  | 3112905550
+55 | Jeferson Ortiz  | 3148404849
+58 | Diana Bayona | 3163394874
+63 | Yuliany Ferizolla | 3143048757
+64 | Amparo Navarro Arevalo  | 3155284448
+65 | Amparo Navarro Arevalo  | 3155284448
+67 | Mauricio Angarita | 3187090511
+85 | Jorge ruedas  | 3112905550
+89 | Wilton pico valcarcel | 3204959673
+90 | Yimer  | 3187037341
+94 | Jhan carlos | 3214304910
+96 | Jorge Ascanio  | 3105759458
+97 | Nor Sánchez  | 3209187979
+99 | Diana Bayona | 3163394874

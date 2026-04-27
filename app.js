@@ -604,25 +604,56 @@ function renderReportList() {
         ? allNums.filter(n => n.status !== 'free')
         : allNums.filter(n => n.status === currentReportFilter);
 
-    const sorted = filtered.sort((a, b) => {
-        const order = { sold: 0, reserved: 1, free: 2 };
-        return (order[a.status] ?? 2) - (order[b.status] ?? 2) || a.id.localeCompare(b.id);
-    });
-
-    if (sorted.length === 0) {
+    if (filtered.length === 0) {
         container.innerHTML = `<p style="text-align:center; color: var(--text-secondary); padding: 20px; font-size: 0.85rem;">No hay números en este estado.</p>`;
         return;
     }
 
+    // Agrupar por comprador
+    const groups = {};
+    filtered.forEach(n => {
+        const buyerName = n.buyer || (n.status === 'free' ? 'LIBRES' : 'Sin nombre');
+        const buyerPhone = n.phone || '';
+        const key = buyerName + (buyerPhone ? `_${buyerPhone}` : '');
+        
+        if (!groups[key]) {
+            groups[key] = {
+                buyer: buyerName,
+                phone: buyerPhone,
+                numbers: [],
+                mainStatus: n.status
+            };
+        }
+        groups[key].numbers.push(n);
+    });
+
+    const sortedGroups = Object.values(groups).sort((a, b) => {
+        const order = { sold: 0, reserved: 1, free: 2 };
+        const statusDiff = (order[a.mainStatus] ?? 2) - (order[b.mainStatus] ?? 2);
+        if (statusDiff !== 0) return statusDiff;
+        return a.buyer.localeCompare(b.buyer);
+    });
+
     const statusLabel = { sold: 'VENDIDO', reserved: 'APARTADO', free: 'LIBRE' };
-    container.innerHTML = sorted.map(n => `
-        <div class="report-row">
-            <div class="report-num-badge ${n.status}">${n.id}</div>
-            <div class="report-buyer">
-                <div class="report-buyer-name">${n.buyer || (n.status === 'free' ? '—' : 'Sin nombre')}</div>
-                <div class="report-buyer-phone">${n.phone || (n.status === 'free' ? 'Disponible' : 'Sin teléfono')}</div>
+    
+    container.innerHTML = sortedGroups.map(g => `
+        <div class="report-row" style="flex-direction: column; align-items: flex-start; gap: 8px; padding: 12px;">
+            <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+                <div class="report-buyer">
+                    <div class="report-buyer-name" style="font-size: 0.95rem;">${g.buyer}</div>
+                    ${g.phone ? `<div class="report-buyer-phone">${g.phone.length > 5 ? g.phone.slice(0, 3) + '****' + g.phone.slice(-3) : '****'}</div>` : ''}
+                </div>
+                <span class="report-status-pill ${g.mainStatus}" style="font-size: 0.6rem;">
+                    ${g.numbers.length} ${g.numbers.length > 1 ? 'NÚMEROS' : 'NÚMERO'}
+                </span>
             </div>
-            <span class="report-status-pill ${n.status}">${statusLabel[n.status] || n.status}</span>
+            <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                ${g.numbers.map(n => `
+                    <div class="report-num-badge ${n.status}" style="width: 32px; height: 32px; font-size: 0.85rem; border-radius: 8px;">
+                        ${n.id}
+                    </div>
+                `).join('')}
+            </div>
         </div>
     `).join('');
 }
@@ -649,6 +680,41 @@ function openListReport() {
 
     document.getElementById('modal-list-report').style.display = 'flex';
 }
+
+window.exportReportText = () => {
+    let content = "REPORTE DE VENTAS - RIFA LHLJ\n";
+    content += "==========================================\n";
+    content += `Fecha: ${new Date().toLocaleString()}\n`;
+    content += "==========================================\n\n";
+
+    const all = [];
+    for (let i = 0; i < 100; i++) {
+        const id = i.toString().padStart(2, '0');
+        const data = numbersData[id] || { status: 'free' };
+        all.push({ id, ...data });
+    }
+
+    const sold = all.filter(n => n.status === 'sold');
+    const reserved = all.filter(n => n.status === 'reserved');
+
+    content += "--- VENDIDOS ---\n";
+    sold.forEach(n => {
+        content += `${n.id} | ${n.buyer || 'Sin nombre'} | ${n.phone || '---'}\n`;
+    });
+
+    content += "\n--- APARTADOS ---\n";
+    reserved.forEach(n => {
+        content += `${n.id} | ${n.buyer || 'Sin nombre'} | ${n.phone || '---'}\n`;
+    });
+
+    const blob = new Blob([content], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `reporte_rifa_${new Date().toISOString().split('T')[0]}.txt`;
+    a.click();
+    URL.revokeObjectURL(url);
+};
 
 document.getElementById('btn-list-report').onclick = openListReport;
 
