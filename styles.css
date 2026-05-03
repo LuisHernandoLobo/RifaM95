@@ -345,33 +345,7 @@ input { background: #020617; border: 1px solid var(--border-color); border-radiu
   .stats-mini .mini-stat { font-size: 0.6rem; }
 }
 
-/* === CRUCE ROJO SUAVE PARA NÚMEROS PAGADOS === */
 .number-cell.sold {
-  position: relative;
-  overflow: hidden;
-}
-
-/* Líneas diagonales correctamente centradas */
-.number-cell.sold::before,
-.number-cell.sold::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 140%;
-  height: 3px; /* Grosor suave */
-  background: rgba(220, 38, 38, 0.55); /* Rojo tenue */
-  transform-origin: center;
-  z-index: 4;
-  pointer-events: none;
-}
-
-/* Diagonal ↘ */
-.number-cell.sold::before {
-  transform: translate(-50%, -50%) rotate(45deg);
-}
-
-/* Diagonal ↗ */
-.number-cell.sold::after {
-  transform: translate(-50%, -50%) rotate(-45deg);
+  background: var(--accent-green);
+  border-color: var(--accent-green);
 }
