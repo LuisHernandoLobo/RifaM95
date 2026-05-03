@@ -24,6 +24,7 @@ const modalAdminAction = document.getElementById('modal-admin-action');
 const modalAdminBroadcast = document.getElementById('modal-admin-broadcast');
 const modalAdminSettings = document.getElementById('modal-admin-settings');
 const modalImageFull = document.getElementById('modal-image-full');
+const footerActions = document.querySelector('.footer-actions');
 
 let selectedNumbers = [];
 let adminWhatsApp = "";
@@ -727,6 +728,14 @@ window.exportReportText = () => {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
+    a.download = `reporte_rifa_${new Date().toISOString().split('T')[0]}.txt`;
+    a.click();
+    URL.revokeObjectURL(url);
+};
+
+document.getElementById('btn-list-report').onclick = openListReport;
+
+init();ref = url;
     a.download = `reporte_rifa_${new Date().toISOString().split('T')[0]}.txt`;
     a.click();
     URL.revokeObjectURL(url);
