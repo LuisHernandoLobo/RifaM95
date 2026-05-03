@@ -62,7 +62,7 @@ function init() {
     const hideSplash = () => {
         setTimeout(() => {
             if (splash) splash.classList.add('hidden');
-        }, 4000); // 4 segundos para permitir la lectura
+        }, 2000); // 2 segundos para permitir la lectura
     };
 
     if (splashImg) {
@@ -71,7 +71,7 @@ function init() {
         } else {
             splashImg.onload = hideSplash;
             // Backup por si la imagen falla o demora demasiado
-            setTimeout(hideSplash, 4000);
+            setTimeout(hideSplash, 2000);
         }
     }
 
