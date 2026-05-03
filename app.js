@@ -77,14 +77,24 @@ function init() {
 
     // Vincular botones de sorteo
     btnAdminDraw.onclick = () => { modalAdminDraw.style.display = 'flex'; };
-    document.getElementById('btn-celebrate-winner').onclick = () => {
+    document.getElementById('btn-celebrate-winner').onclick = async () => {
         const winInput = document.getElementById('draw-winner-num');
         let winNum = winInput.value;
-        if (winNum === "") return;
+        if (winNum === "") {
+            // Si el input está vacío, podemos limpiar el ganador en la DB
+            if (confirm("¿Deseas limpiar el número ganador de la base de datos?")) {
+                await db.collection("config").doc("main").update({ winner: firebase.firestore.FieldValue.delete() });
+                closeModals();
+            }
+            return;
+        }
         winNum = winNum.toString().padStart(2, '0');
         
-        closeModals();
-        celebrate(winNum);
+        try {
+            await db.collection("config").doc("main").set({ winner: winNum }, { merge: true });
+            saveLog('draw_winner', [winNum], { buyer: 'ADMIN_DRAW' });
+            closeModals();
+        } catch (e) { alert("Error al guardar ganador"); }
     };
 
     function celebrate(num) {
@@ -107,14 +117,6 @@ function init() {
             const particleCount = 50 * (timeLeft / duration);
             confetti({ ...defaults, particleCount, origin: { x: Math.random(), y: Math.random() - 0.2 } });
         }, 250);
-
-        // Resaltar visualmente el número ganador
-        const winCell = document.getElementById(`cell-${num}`);
-        if (winCell) {
-            winCell.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            winCell.classList.add('winner-highlight');
-            setTimeout(() => { winCell.classList.remove('winner-highlight'); }, 15000);
-        }
     }
 
     document.getElementById('btn-export-backup').onclick = () => {
@@ -184,16 +186,14 @@ function listenToNumbers() {
         snapshot.forEach((doc) => {
             const data = doc.data();
             numbersData[doc.id] = data;
-            const cell = document.getElementById(`cell-${doc.id}`);
-            const nameSpan = document.getElementById(`name-${doc.id}`);
-            if (cell && !selectedNumbers.includes(doc.id)) {
-                cell.className = `number-cell ${data.status}`;
-                if (nameSpan) nameSpan.innerText = (data.status !== 'free' ? (data.buyer || "") : "");
-            }
+            const isSelected = selectedNumbers.includes(doc.id);
+            updateCellVisual(doc.id, isSelected);
         });
         updateMiniStats();
     });
 }
+
+let currentWinner = null;
 
 function loadConfig() {
     db.collection("config").doc("main").onSnapshot((doc) => {
@@ -217,6 +217,33 @@ function loadConfig() {
             } else {
                 cashContainer.style.display = 'none';
             }
+
+            // Manejo del Ganador
+            const newWinner = data.winner || null;
+            console.log("Ganador detectado en DB:", newWinner);
+            
+            // Quitar resaltado previo
+            if (currentWinner && currentWinner !== newWinner) {
+                const oldCell = document.getElementById(`cell-${currentWinner}`);
+                if (oldCell) oldCell.classList.remove('winner-highlight');
+            }
+
+            currentWinner = newWinner;
+
+            if (currentWinner) {
+                const winCell = document.getElementById(`cell-${currentWinner}`);
+                if (winCell) {
+                    console.log("Aplicando resaltado a celda:", currentWinner);
+                    winCell.classList.add('winner-highlight');
+                    if (newWinner !== currentWinner) {
+                        celebrate(currentWinner);
+                        winCell.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                }
+            }
+            
+            // Forzar actualización visual de todas las celdas para asegurar que el ganador se vea
+            Object.keys(numbersData).forEach(id => updateCellVisual(id, selectedNumbers.includes(id)));
         }
     });
 }
@@ -339,13 +366,28 @@ function updateCellVisual(id, isSelected) {
         cell.className = `number-cell ${status}`;
         if (nameSpan) nameSpan.innerText = (status !== 'free' ? (numbersData[id].buyer || "") : "");
     }
+
+    // Aplicar resaltado de ganador siempre
+    if (currentWinner && id === currentWinner) {
+        cell.classList.add('winner-highlight');
+    } else {
+        cell.classList.remove('winner-highlight');
+    }
 }
 
 function updateUI() {
     const values = Object.values(numbersData);
     const soldCount = values.filter(n => n.status === 'sold').length;
     const reservedCount = values.filter(n => n.status === 'reserved').length;
+    const totalOccupancy = soldCount + reservedCount;
     
+    // Ocultar footer si está lleno y no es admin
+    if (!isAdmin && totalOccupancy >= 100) {
+        footerActions.style.display = 'none';
+    } else {
+        footerActions.style.display = 'flex';
+    }
+
     // Porcentajes para el gradiente (asumiendo 100 números)
     const pSold = soldCount;
     const pReserved = soldCount + reservedCount;
@@ -373,7 +415,6 @@ function updateUI() {
     const percentColor = "rgba(2, 6, 23, 0.7)"; 
     
     // Actualizar texto del botón con el porcentaje de ocupación total
-    const totalOccupancy = soldCount + reservedCount;
     btnReserveTrigger.innerHTML = `<span>${baseText}</span>${separator}<span style="font-size: 0.85em; color: ${percentColor}; font-weight: 900;">OCUPADO EL ${totalOccupancy}%</span>`;
     
     // Gradiente de 3 colores: Verde (Vendidos), Amarillo (Apartados), Azul (Libres)
@@ -728,14 +769,6 @@ window.exportReportText = () => {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `reporte_rifa_${new Date().toISOString().split('T')[0]}.txt`;
-    a.click();
-    URL.revokeObjectURL(url);
-};
-
-document.getElementById('btn-list-report').onclick = openListReport;
-
-init();ref = url;
     a.download = `reporte_rifa_${new Date().toISOString().split('T')[0]}.txt`;
     a.click();
     URL.revokeObjectURL(url);
