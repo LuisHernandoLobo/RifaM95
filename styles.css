@@ -40,8 +40,8 @@
   display: none; /* Desaparición instantánea */
 }
 
-body { background: var(--bg-primary); color: var(--text-primary); height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
-.container { flex: 1; display: flex; flex-direction: column; padding: 10px; gap: 8px; overflow: auto; }
+body { background: var(--bg-primary); color: var(--text-primary); height: 100vh; overflow: hidden; display: flex; flex-direction: column; align-items: stretch; }
+.container { flex: 1; display: flex; flex-direction: column; padding: 10px; gap: 8px; overflow: auto; width: 100%; box-sizing: border-box; }
 
 /* --- HEADER MAXIMIZADO --- */
 header { 
@@ -59,10 +59,11 @@ header {
     box-shadow: 0 10px 40px rgba(0,0,0,0.6); 
     overflow: hidden;
     width: 100%;
+    box-sizing: border-box;
 }
 header img { 
-    flex: 1 1 0;
-    min-width: 0;
+    flex: 0 0 auto;
+    width: 65%;
     height: 20vh; 
     object-fit: contain; 
     object-position: center center;
@@ -243,7 +244,7 @@ header img {
 /* --- OPTIMIZACIÓN PARA MÓVILES --- */
 @media (max-width: 768px) {
   header { min-height: 20vh; padding: 0 12px 0 0; }
-  header img { height: 20vh; width: auto; max-width: 65%; border-radius: 14px 0 0 14px; }
+  header img { width: 60%; height: 20vh; border-radius: 14px 0 0 14px; }
   .admin-side-controls { min-width: 140px; }
   .raffle-info h2 { font-size: 1.3rem; }
   .selection-summary-mini { padding: 6px 10px; gap: 8px; }
