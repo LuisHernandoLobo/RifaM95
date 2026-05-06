@@ -43,24 +43,24 @@
 body { background: var(--bg-primary); color: var(--text-primary); height: 100vh; overflow: hidden; display: flex; flex-direction: column; align-items: stretch; }
 .container { flex: 1; display: flex; flex-direction: column; padding: 10px; gap: 8px; overflow: auto; width: 100%; box-sizing: border-box; }
 
-/* --- HEADER RESPONSIVO CON GRID --- */
+/* --- HEADER RESPONSIVO 50/50 --- */
 .main-header { 
     display: grid;
-    grid-template-columns: 1fr auto; /* Imagen flexible, controles fijos a la derecha */
+    grid-template-columns: 1fr 1fr; /* División 50/50 forzada */
     align-items: center;
     gap: 10px;
     border: 1px solid var(--border-color); 
     border-radius: 12px; 
-    padding: 8px;
+    padding: 10px;
     box-shadow: 0 5px 20px rgba(0,0,0,0.4); 
     width: 100%;
+    min-height: 100px;
     box-sizing: border-box;
 }
 .main-header img { 
     width: 100%;
-    max-width: 300px; /* Limitar el ancho de la imagen */
-    height: auto;
-    max-height: 80px; 
+    height: 100%;
+    max-height: 100px; 
     object-fit: contain; 
     border-radius: 8px;
     cursor: pointer; 
@@ -68,25 +68,14 @@ body { background: var(--bg-primary); color: var(--text-primary); height: 100vh;
 .admin-side-controls { 
     display: flex; 
     flex-direction: column; 
-    gap: 4px; 
-    width: auto;
+    gap: 5px; 
+    width: 100%;
+    justify-content: center;
 }
-@media (max-width: 480px) {
-    .main-header {
-        grid-template-columns: 1fr; /* En pantallas muy pequeñas, apilar */
-    }
-    .main-header img {
-        max-width: 100%;
-    }
-}
-@media (min-width: 768px) {
-    .main-header {
-        padding: 15px;
-        gap: 20px;
-    }
-    .main-header img {
-        max-height: 120px;
-    }
+.admin-top-buttons {
+    display: flex;
+    gap: 5px;
+    justify-content: flex-end;
 }
 
 .selection-summary-mini {
