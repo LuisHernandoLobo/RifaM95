@@ -43,11 +43,12 @@
 body { background: var(--bg-primary); color: var(--text-primary); height: 100vh; overflow: hidden; display: flex; flex-direction: column; align-items: stretch; }
 .container { flex: 1; display: flex; flex-direction: column; padding: 10px; gap: 8px; overflow: auto; width: 100%; box-sizing: border-box; }
 
-/* --- HEADER RESPONSIVO --- */
+/* --- HEADER RESPONSIVO CON GRID --- */
 .main-header { 
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+    display: grid;
+    grid-template-columns: 1fr auto; /* Imagen flexible, controles fijos a la derecha */
+    align-items: center;
+    gap: 10px;
     border: 1px solid var(--border-color); 
     border-radius: 12px; 
     padding: 8px;
@@ -57,8 +58,9 @@ body { background: var(--bg-primary); color: var(--text-primary); height: 100vh;
 }
 .main-header img { 
     width: 100%;
+    max-width: 300px; /* Limitar el ancho de la imagen */
     height: auto;
-    max-height: 120px; /* Reducción drástica para móvil */
+    max-height: 80px; 
     object-fit: contain; 
     border-radius: 8px;
     cursor: pointer; 
@@ -66,25 +68,24 @@ body { background: var(--bg-primary); color: var(--text-primary); height: 100vh;
 .admin-side-controls { 
     display: flex; 
     flex-direction: column; 
-    gap: 5px; 
-    width: 100%;
+    gap: 4px; 
+    width: auto;
+}
+@media (max-width: 480px) {
+    .main-header {
+        grid-template-columns: 1fr; /* En pantallas muy pequeñas, apilar */
+    }
+    .main-header img {
+        max-width: 100%;
+    }
 }
 @media (min-width: 768px) {
     .main-header {
-        flex-direction: row;
-        align-items: center;
         padding: 15px;
+        gap: 20px;
     }
     .main-header img {
-        width: 50%;
-        max-height: 200px;
-        aspect-ratio: 2 / 1;
-        object-fit: contain;
-    }
-    .admin-side-controls {
-        width: 50%;
-        padding-left: 15px;
-        gap: 10px;
+        max-height: 120px;
     }
 }
 
