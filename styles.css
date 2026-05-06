@@ -46,35 +46,43 @@ body { background: var(--bg-primary); color: var(--text-primary); height: 100vh;
 /* --- HEADER MAXIMIZADO --- */
 header { 
     flex: 0 0 auto; 
-    min-height: 20vh; 
-    background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%); 
+    min-height: 20vh;
     border: 1px solid var(--border-color); 
     border-radius: 16px; 
-    padding: 0 15px 0 0; 
-    display: flex; 
-    flex-direction: row;
-    align-items: center; 
-    gap: 12px; 
+    padding: 0;
     position: relative; 
     box-shadow: 0 10px 40px rgba(0,0,0,0.6); 
     overflow: hidden;
     width: 100%;
     box-sizing: border-box;
+    display: block;
 }
 header img { 
-    flex: 0 0 auto;
-    width: 65%;
+    width: 100%;
     height: 20vh; 
-    object-fit: contain; 
+    object-fit: cover; 
     object-position: center center;
     cursor: pointer; 
-    margin: 0;
     display: block;
-    border-radius: 14px 0 0 14px;
+    border-radius: 16px;
 }
 .raffle-info { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 5px; }
 .raffle-info h2 { font-size: 1.8rem; font-weight: 900; line-height: 1.1; background: linear-gradient(to right, #fff, var(--accent-yellow)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; }
-.admin-side-controls { display: flex; flex-direction: column; align-items: flex-end; min-width: 185px; gap: 6px; flex-shrink: 0; }
+.admin-side-controls { 
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    display: flex; 
+    flex-direction: column; 
+    align-items: flex-end; 
+    justify-content: center;
+    gap: 6px; 
+    padding: 10px 12px;
+    background: linear-gradient(to left, rgba(2,6,23,0.85) 60%, transparent);
+    border-radius: 0 16px 16px 0;
+    min-width: 200px;
+}
 
 .selection-summary-mini {
   background: rgba(0,0,0,0.7);
@@ -243,9 +251,9 @@ header img {
 
 /* --- OPTIMIZACIÓN PARA MÓVILES --- */
 @media (max-width: 768px) {
-  header { min-height: 20vh; padding: 0 12px 0 0; }
-  header img { width: 60%; height: 20vh; border-radius: 14px 0 0 14px; }
-  .admin-side-controls { min-width: 140px; }
+  header { min-height: 18vh; }
+  header img { height: 18vh; }
+  .admin-side-controls { min-width: 160px; padding: 8px 10px; }
   .raffle-info h2 { font-size: 1.3rem; }
   .selection-summary-mini { padding: 6px 10px; gap: 8px; }
   .mini-stat strong { font-size: 1.4rem; }
@@ -273,7 +281,6 @@ header img {
 @media (max-width: 600px) and (orientation: portrait) {
   header {
       min-width: 650px; /* Igual que el cartón */
-      flex-direction: row;
   }
   .stats-cards-row {
       min-width: 100%;
