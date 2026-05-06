@@ -46,7 +46,7 @@ body { background: var(--bg-primary); color: var(--text-primary); height: 100vh;
 /* --- HEADER MAXIMIZADO --- */
 header { 
     flex: 0 0 auto; 
-    min-height: 15vh;
+    min-height: 20vh;
     border: 1px solid var(--border-color); 
     border-radius: 16px; 
     padding: 0;
