@@ -58,7 +58,7 @@ header {
     display: block;
 }
 header img { 
-    width: 100%;
+    width: 90%;
     height: 15vh; 
     object-position: center center;
     cursor: pointer; 
