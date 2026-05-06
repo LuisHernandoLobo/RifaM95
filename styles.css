@@ -46,30 +46,34 @@ body { background: var(--bg-primary); color: var(--text-primary); height: 100vh;
 /* --- HEADER MAXIMIZADO --- */
 header { 
     flex: 0 0 auto; 
-    min-height: 18vh; 
+    min-height: 20vh; 
     background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%); 
     border: 1px solid var(--border-color); 
     border-radius: 16px; 
     padding: 0 15px 0 0; 
     display: flex; 
+    flex-direction: row;
     align-items: center; 
-    gap: 15px; 
+    gap: 12px; 
     position: relative; 
     box-shadow: 0 10px 40px rgba(0,0,0,0.6); 
     overflow: hidden;
+    width: 100%;
 }
 header img { 
-    width: 20%; 
-    height: 18vh; 
-    object-fit: cover; 
-    object-position: left;
+    flex: 1 1 0;
+    min-width: 0;
+    height: 20vh; 
+    object-fit: contain; 
+    object-position: center center;
     cursor: pointer; 
     margin: 0;
     display: block;
+    border-radius: 14px 0 0 14px;
 }
 .raffle-info { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 5px; }
 .raffle-info h2 { font-size: 1.8rem; font-weight: 900; line-height: 1.1; background: linear-gradient(to right, #fff, var(--accent-yellow)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; }
-.admin-side-controls { display: flex; flex-direction: column; align-items: flex-end; min-width: 180px; gap: 6px; }
+.admin-side-controls { display: flex; flex-direction: column; align-items: flex-end; min-width: 185px; gap: 6px; flex-shrink: 0; }
 
 .selection-summary-mini {
   background: rgba(0,0,0,0.7);
@@ -238,8 +242,9 @@ header img {
 
 /* --- OPTIMIZACIÓN PARA MÓVILES --- */
 @media (max-width: 768px) {
-  header { min-height: 15vh; padding: 8px 12px; }
-  header img { width: 40%; max-height: 13vh; }
+  header { min-height: 20vh; padding: 0 12px 0 0; }
+  header img { height: 20vh; width: auto; max-width: 65%; border-radius: 14px 0 0 14px; }
+  .admin-side-controls { min-width: 140px; }
   .raffle-info h2 { font-size: 1.3rem; }
   .selection-summary-mini { padding: 6px 10px; gap: 8px; }
   .mini-stat strong { font-size: 1.4rem; }
@@ -267,6 +272,7 @@ header img {
 @media (max-width: 600px) and (orientation: portrait) {
   header {
       min-width: 650px; /* Igual que el cartón */
+      flex-direction: row;
   }
   .stats-cards-row {
       min-width: 100%;
@@ -324,7 +330,7 @@ input { background: #020617; border: 1px solid var(--border-color); border-radiu
 .btn-ghost { background: transparent; color: var(--text-secondary); border: none; font-weight: 700; cursor: pointer; }
 
 /* --- ADMIN TOP BUTTONS --- */
-.admin-top-buttons { display: flex; gap: 6px; justify-content: flex-end; }
+.admin-top-buttons { display: flex; gap: 6px; justify-content: flex-end; align-items: center; }
 .btn-list-access { background: rgba(16, 185, 129, 0.15) !important; border-color: var(--accent-green) !important; color: var(--accent-green) !important; }
 
 /* --- STATS CARDS ROW --- */
