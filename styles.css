@@ -46,7 +46,7 @@ body { background: var(--bg-primary); color: var(--text-primary); height: 100vh;
 /* --- HEADER MAXIMIZADO --- */
 header { 
     flex: 0 0 auto; 
-    min-height: 20vh;
+    min-height: 15vh;
     border: 1px solid var(--border-color); 
     border-radius: 16px; 
     padding: 0;
@@ -59,8 +59,7 @@ header {
 }
 header img { 
     width: 100%;
-    height: 20vh; 
-    object-fit: cover; 
+    height: 15vh; 
     object-position: center center;
     cursor: pointer; 
     display: block;
@@ -251,8 +250,8 @@ header img {
 
 /* --- OPTIMIZACIÓN PARA MÓVILES --- */
 @media (max-width: 768px) {
-  header { min-height: 18vh; }
-  header img { height: 18vh; }
+  header { min-height: 13vh; }
+  header img { height: 13vh; }
   .admin-side-controls { min-width: 160px; padding: 8px 10px; }
   .raffle-info h2 { font-size: 1.3rem; }
   .selection-summary-mini { padding: 6px 10px; gap: 8px; }
