@@ -43,44 +43,46 @@
 body { background: var(--bg-primary); color: var(--text-primary); height: 100vh; overflow: hidden; display: flex; flex-direction: column; align-items: stretch; }
 .container { flex: 1; display: flex; flex-direction: column; padding: 10px; gap: 8px; overflow: auto; width: 100%; box-sizing: border-box; }
 
-/* --- HEADER MAXIMIZADO --- */
-header { 
-    flex: 0 0 auto; 
-    min-height: 11vh;
+/* --- HEADER RESPONSIVO --- */
+.main-header { 
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
     border: 1px solid var(--border-color); 
     border-radius: 16px; 
-    padding: 0;
-    position: relative; 
+    padding: 10px;
     box-shadow: 0 10px 40px rgba(0,0,0,0.6); 
-    overflow: hidden;
     width: 100%;
     box-sizing: border-box;
-    display: block;
 }
-header img { 
+.main-header img { 
     width: 100%;
-    height: 11vh; 
-    object-position: center center;
+    height: auto;
+    aspect-ratio: 2 / 1;
+    object-fit: cover;
+    border-radius: 12px;
     cursor: pointer; 
-    display: block;
-    border-radius: 16px;
 }
-.raffle-info { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 5px; }
-.raffle-info h2 { font-size: 1.8rem; font-weight: 900; line-height: 1.1; background: linear-gradient(to right, #fff, var(--accent-yellow)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; }
 .admin-side-controls { 
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
     display: flex; 
     flex-direction: column; 
-    align-items: flex-end; 
-    justify-content: center;
-    gap: 6px; 
-    padding: 10px 12px;
-    background: linear-gradient(to left, rgba(2,6,23,0.85) 60%, transparent);
-    border-radius: 0 16px 16px 0;
-    min-width: 200px;
+    gap: 10px; 
+    width: 100%;
+}
+@media (min-width: 768px) {
+    .main-header {
+        flex-direction: row;
+        align-items: center;
+        padding: 15px;
+    }
+    .main-header img {
+        width: 50%;
+        aspect-ratio: 2 / 1;
+    }
+    .admin-side-controls {
+        width: 50%;
+        padding-left: 15px;
+    }
 }
 
 .selection-summary-mini {
