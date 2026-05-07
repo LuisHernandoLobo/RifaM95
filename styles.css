@@ -192,18 +192,67 @@ body { background: var(--bg-primary); color: var(--text-primary); height: 100vh;
 }
 /* ... rest of code ... */
 .footer-actions { 
-    position: sticky; /* Cambiado de fixed para que fluya mejor con el contenido si es necesario */
+    position: sticky; 
     bottom: 0; 
     left: 0; 
     width: 100%; 
-    padding: 15px; 
+    padding: 22px 15px 15px 15px; 
     display: flex; 
-    gap: 10px; 
+    flex-direction: column; 
+    gap: 0; 
     background: rgba(2,6,23,0.98); 
     backdrop-filter: blur(15px); 
     z-index: 100; 
     border-top: 1px solid var(--border-color);
     margin-top: auto;
+}
+
+.selection-floating-tag {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1e293b;
+    border: 2px solid var(--accent-blue);
+    border-radius: 20px;
+    padding: 4px 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 101;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    white-space: nowrap;
+}
+
+@keyframes popIn {
+    from { transform: translateX(-50%) scale(0.5); opacity: 0; }
+    to { transform: translateX(-50%) scale(1); opacity: 1; }
+}
+
+#sel-list-display {
+    font-size: 0.8rem;
+    font-weight: 900;
+    color: var(--accent-yellow);
+    letter-spacing: 0.5px;
+}
+
+.sel-separator {
+    color: rgba(255,255,255,0.2);
+}
+
+#total-display-footer {
+    font-size: 0.85rem;
+    font-weight: 900;
+    color: var(--accent-green);
+}
+
+@media (max-width: 600px) {
+    .selection-floating-tag {
+        padding: 4px 12px;
+        width: 90%;
+        justify-content: center;
+    }
 }
 
 @media (max-width: 768px) {

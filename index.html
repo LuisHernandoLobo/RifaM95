@@ -40,10 +40,6 @@
         <button id="btn-list-report" class="btn-admin-access btn-list-access">LIST</button>
       </div>
       <div class="stats-cards-row">
-        <div class="selection-summary-mini">
-          <div class="mini-stat">ELEGIDOS<br><strong id="count-display">0</strong></div>
-          <div class="mini-stat total">TOTAL<br><strong id="total-display">0</strong></div>
-        </div>
         <div class="selection-summary-mini stats-mini">
           <div class="mini-stat sold-stat">VEND.<br><strong id="sold-display">0</strong></div>
           <div class="mini-stat reserved-stat">APART.<br><strong id="reserved-display">0</strong></div>
@@ -58,7 +54,12 @@
   </div>
 
   <div class="footer-actions">
-    <button id="btn-reserve-trigger" class="btn-main" disabled>RESERVAR NÚMEROS AHORA</button>
+    <div id="selection-bar" class="selection-floating-tag" style="display: none;">
+      <span id="sel-list-display">---</span>
+      <span class="sel-separator">|</span>
+      <span id="total-display-footer">$0</span>
+    </div>
+    <button id="btn-reserve-trigger" class="btn-main" disabled>ELIGE TUS NÚMEROS</button>
     <button id="btn-admin-broadcast" class="btn-main" style="display:none; background:var(--accent-yellow); color:black;">MENSAJE MASIVO</button>
     <button id="btn-admin-draw" class="btn-main" style="display:none; background:linear-gradient(to right, #f59e0b, #ef4444); color:white;">SORTEO</button>
     <button id="btn-admin-settings" class="btn-main" style="display:none; background:#334155; max-width: 80px; font-size: 0.7rem;">AJUSTES</button>

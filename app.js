@@ -383,44 +383,47 @@ function updateUI() {
         footerActions.style.display = 'flex';
     }
 
-    // Porcentajes para el gradiente (asumiendo 100 números)
-    const pSold = soldCount;
-    const pReserved = soldCount + reservedCount;
-
     const count = selectedNumbers.length;
     const total = count * 20000;
-    document.getElementById('count-display').innerText = count;
-    document.getElementById('total-display').innerText = total.toLocaleString();
+    
+    // Nueva barra de selección inferior
+    const selectionBar = document.getElementById('selection-bar');
+    if (count > 0) {
+        selectionBar.style.display = 'flex';
+        document.getElementById('sel-list-display').innerText = selectedNumbers.sort().join(', ');
+        document.getElementById('total-display-footer').innerText = `$${total.toLocaleString()}`;
+    } else {
+        selectionBar.style.display = 'none';
+    }
+
     btnReserveTrigger.disabled = (count === 0 && !isAdmin);
     
     let baseText = "";
-    // Color de texto oscuro para que resalte sobre el gradiente brillante
     const contrastTextColor = "var(--bg-primary)"; 
     
     if (isAdmin) {
-        baseText = count > 0 ? `GESTIONAR ${count} ELEGIDOS` : "SELECCIONA NÚMEROS";
-        btnReserveTrigger.style.color = contrastTextColor;
+        baseText = count > 0 ? `GESTIONAR ELEGIDOS` : "SELECCIONA NÚMEROS";
     } else {
-        baseText = count > 0 ? `RESERVAR ${count} NÚMEROS` : "RESERVAR NÚMEROS AHORA";
-        btnReserveTrigger.style.color = contrastTextColor;
+        baseText = count > 0 ? `RESERVAR AHORA` : "ELIGE TUS NÚMEROS";
     }
 
     const separator = window.innerWidth < 600 ? '<br>' : '   —   ';
-    // Usamos un color oscuro semi-transparente para el porcentaje para que sea legible siempre
     const percentColor = "rgba(2, 6, 23, 0.7)"; 
     
-    // Actualizar texto del botón con el porcentaje de ocupación total
     btnReserveTrigger.innerHTML = `<span>${baseText}</span>${separator}<span style="font-size: 0.85em; color: ${percentColor}; font-weight: 900;">OCUPADO EL ${totalOccupancy}%</span>`;
     
-    // Gradiente de 3 colores: Verde (Vendidos), Amarillo (Apartados), Azul (Libres)
     const colorSold = "var(--accent-green)";
     const colorReserved = "var(--accent-yellow)";
     const colorFree = "var(--accent-blue)";
+
+    const pSold = soldCount;
+    const pReserved = soldCount + reservedCount;
 
     btnReserveTrigger.style.background = `linear-gradient(to right, 
         ${colorSold} 0%, ${colorSold} ${pSold}%, 
         ${colorReserved} ${pSold}%, ${colorReserved} ${pReserved}%, 
         ${colorFree} ${pReserved}%, ${colorFree} 100%)`;
+    btnReserveTrigger.style.color = contrastTextColor;
 }
 
 // --- MODALES ---
