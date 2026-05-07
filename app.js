@@ -435,7 +435,9 @@ btnReserveTrigger.onclick = () => {
         document.getElementById('admin-edit-phone').value = data.phone || "";
         modalAdminAction.style.display = 'flex';
     } else {
-        document.getElementById('selected-summary').innerText = `Números: ${selectedNumbers.sort().join(', ')}`;
+        const total = selectedNumbers.length * 20000;
+        document.getElementById('selected-summary').innerText = `Números elegidos: ${selectedNumbers.sort().join(', ')}`;
+        document.getElementById('selected-total-modal').innerText = `TOTAL A PAGAR: $${total.toLocaleString()}`;
         modalUser.style.display = 'flex';
     }
 };
