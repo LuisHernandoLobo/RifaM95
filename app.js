@@ -199,7 +199,8 @@ function loadConfig() {
     db.collection("config").doc("main").onSnapshot((doc) => {
         if (doc.exists) {
             const data = doc.data();
-            adminWhatsApp = data.adminWhatsApp || "";
+            // Sanitizar el número de WhatsApp: solo números
+            adminWhatsApp = (data.adminWhatsApp || "").replace(/\D/g, "");
             adminPaymentInfo = data.paymentInfo || "";
             adminCashInfo = data.cashInfo || "";
             
@@ -207,17 +208,11 @@ function loadConfig() {
             document.getElementById('admin-config-payment').value = adminPaymentInfo;
             document.getElementById('admin-config-cash').value = adminCashInfo;
             
-            document.getElementById('display-payment-info').innerText = adminPaymentInfo || "PENDIENTE";
+            // Mostrar medio de pago completo (ej: "Nequi 3001234567")
+            // Tomamos la primera línea o el primer medio detectado
+            const firstLine = adminPaymentInfo.split('\n')[0] || "Consultar medios";
+            document.getElementById('header-nequi-val').innerText = firstLine.trim();
             
-            const cashContainer = document.getElementById('cash-container');
-            const displayCashInfo = document.getElementById('display-cash-info');
-            if (adminCashInfo) {
-                cashContainer.style.display = 'inline';
-                displayCashInfo.innerText = adminCashInfo;
-            } else {
-                cashContainer.style.display = 'none';
-            }
-
             // Manejo del Ganador
             const newWinner = data.winner || null;
             console.log("Ganador detectado en DB:", newWinner);
@@ -446,14 +441,20 @@ document.getElementById('btn-confirm-reserve').onclick = async () => {
     const name = document.getElementById('user-name').value;
     const phone = document.getElementById('user-whatsapp').value;
     if (!name || !phone) return alert("Completa los datos");
+
+    if (!adminWhatsApp) {
+        alert("El administrador aún no ha configurado su WhatsApp. Por favor, intenta más tarde o contacta por otro medio.");
+        return;
+    }
+
+    const btn = document.getElementById('btn-confirm-reserve');
+    const originalText = btn.innerText;
+    btn.disabled = true;
+    btn.innerText = "PROCESANDO...";
     
     const selectionToProcess = [...selectedNumbers];
     const total = selectionToProcess.length * 20000;
     const now = new Date().toLocaleString();
-
-    closeModals();
-    selectedNumbers = [];
-    updateUI();
 
     const batch = db.batch();
     selectionToProcess.forEach(num => {
@@ -477,8 +478,17 @@ document.getElementById('btn-confirm-reserve').onclick = async () => {
         
         // Abrir WhatsApp dirigido al Administrador
         window.open(`https://wa.me/${adminWhatsApp}?text=${encodeURIComponent(msgFull)}`, '_blank');
+        
+        closeModals();
+        selectedNumbers = [];
+        updateUI();
 
-    } catch (e) { alert("Error al guardar reserva"); }
+    } catch (e) { 
+        alert("Error al guardar reserva: " + e.message); 
+    } finally {
+        btn.disabled = false;
+        btn.innerText = originalText;
+    }
 };
 
 // --- ACCIONES ADMIN ---
@@ -775,5 +785,33 @@ window.exportReportText = () => {
 };
 
 document.getElementById('btn-list-report').onclick = openListReport;
+
+function copyToClipboard(element) {
+    const text = document.getElementById('header-nequi-val').innerText;
+    if (text === "Consultar" || text === "Cargando...") return;
+    
+    // Extraer solo los números para el portapapeles
+    const onlyNumbers = text.replace(/\D/g, "");
+    
+    navigator.clipboard.writeText(onlyNumbers).then(() => {
+        const originalHtml = element.innerHTML;
+        element.style.background = "var(--accent-green)";
+        element.style.color = "#020617";
+        element.innerHTML = "<strong>¡COPIADO!</strong>";
+        
+        setTimeout(() => {
+            element.style.background = "";
+            element.style.color = "";
+            element.innerHTML = originalHtml;
+            // Necesitamos re-actualizar el número si cambió mientras estaba el mensaje de copiado
+            const currentNequi = document.getElementById('header-nequi-val').innerText;
+            if (currentNequi === "¡COPIADO!") {
+                 loadConfig(); // Forzar recarga o simplemente esperar al siguiente snapshot
+            }
+        }, 2000);
+    }).catch(err => {
+        console.error('Error al copiar: ', err);
+    });
+}
 
 init();

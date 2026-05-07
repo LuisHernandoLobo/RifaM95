@@ -25,6 +25,15 @@
   <header class="main-header">
     <img src="logo.webp" alt="Rifa" onclick="openFullImage()" ondblclick="openFullImage()" style="cursor: zoom-in;">
     
+    <div class="header-info-center">
+      <div class="info-badge price">VALOR: <strong>$20.000</strong></div>
+      <div class="info-badge payment" onclick="copyToClipboard(this)" title="Haz clic para copiar el número">
+        <strong id="header-nequi-val">Cargando...</strong>
+        <span class="copy-hint">Copiar #</span>
+      </div>
+      <p class="header-tagline">¡Toca el número para copiarlo y pagar!</p>
+    </div>
+    
     <div class="admin-side-controls">
       <div class="admin-top-buttons">
         <button id="btn-admin-login" class="btn-admin-access">ADMIN</button>
@@ -116,6 +125,9 @@
       <input type="text" id="user-name" placeholder="Tu Nombre Completo">
       <input type="tel" id="user-whatsapp" placeholder="WhatsApp (Ej: 3001234567)">
     </div>
+    <p style="font-size: 0.7rem; color: var(--text-secondary); text-align: center; margin-top: 5px;">
+      ⚠️ Al confirmar, se abrirá WhatsApp. <b>Debes presionar "Enviar"</b> en WhatsApp para completar tu reserva.
+    </p>
     <button id="btn-confirm-reserve" class="btn-main">CONFIRMAR Y ENVIAR</button>
     <button onclick="closeModals()" class="btn-ghost">CANCELAR</button>
   </div>
