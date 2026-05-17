@@ -314,7 +314,16 @@ function highlightBuyerGroup(buyer, phone) {
             </div>
         `).join('');
         const deuda = reservedNums.length * 20000;
-        document.getElementById('msg-reserved').innerText = `Por favor enviar el soporte de pago por $${deuda.toLocaleString()}`;
+        const contactoPago = document.getElementById('header-nequi-val').innerText;
+        document.getElementById('msg-reserved').innerHTML = `
+            Por favor enviar el soporte de pago por <strong>$${deuda.toLocaleString()}</strong><br>
+            al WhatsApp: <span style="color:white; cursor:pointer; text-decoration:underline;" onclick="navigator.clipboard.writeText('${adminWhatsApp}'); alert('WhatsApp copiado: ${adminWhatsApp}');">${adminWhatsApp}</span><br>
+            <div style="margin-top: 10px; padding: 8px; background: rgba(255, 255, 255, 0.1); border-radius: 6px; border: 1px solid rgba(255, 255, 255, 0.2);">
+                <small style="display:block; color: #aaa; margin-bottom: 2px;">Puedes realizar tu pago con:</small>
+                <span style="color:var(--accent-green); cursor:pointer; font-weight:bold; font-size: 1.1rem; text-decoration:underline;" onclick="navigator.clipboard.writeText('${contactoPago.replace(/\D/g, "")}'); alert('Datos copiados: ${contactoPago}');">${contactoPago}</span>
+                <br><small style="font-size: 0.7rem; color: #888;">(Toca para copiar)</small>
+            </div>
+        `;
     } else {
         containerRes.style.display = 'none';
     }
@@ -438,6 +447,14 @@ btnReserveTrigger.onclick = () => {
         const total = selectedNumbers.length * 20000;
         document.getElementById('selected-summary').innerText = `Números elegidos: ${selectedNumbers.sort().join(', ')}`;
         document.getElementById('selected-total-modal').innerText = `TOTAL A PAGAR: $${total.toLocaleString()}`;
+        
+        // Intentar recuperar nombre y celular guardados anteriormente
+        const savedName = localStorage.getItem('userName');
+        const savedPhone = localStorage.getItem('userPhone');
+        
+        if (savedName) document.getElementById('user-name').value = savedName;
+        if (savedPhone) document.getElementById('user-whatsapp').value = savedPhone;
+
         modalUser.style.display = 'flex';
     }
 };
@@ -470,6 +487,10 @@ document.getElementById('btn-confirm-reserve').onclick = async () => {
         await batch.commit();
         saveLog('reserve', selectionToProcess, { buyer: name, phone: phone });
         
+        // Guardar nombre y celular para uso futuro
+        localStorage.setItem('userName', name);
+        localStorage.setItem('userPhone', phone);
+        
         const sortedNums = selectionToProcess.sort().join(', ');
         const isPlural = selectionToProcess.length > 1;
         const textNum = isPlural ? 'los números' : 'el número';
@@ -479,7 +500,7 @@ document.getElementById('btn-confirm-reserve').onclick = async () => {
         let payMsg = `💰 *Puedes realizar tu pago aquí:* \n${adminPaymentInfo}`;
         if (adminCashInfo) payMsg += `\n\n💵 *O en efectivo con:* \n${adminCashInfo}`;
 
-        const msgFull = `✅ *NUEVA RESERVA DE RIFA*\n\nHola, soy *${name}*.\nHe apartado ${textNum}: *${sortedNums}*.\n\n💵 *Total a pagar:* *$${totalFmt}*\n\n${payMsg}\n\n🙏 *Adjunto el comprobante de pago para confirmar mis números.*\n\n🚀 Consulta la tabla actualizada aquí:\nhttps://luishernandolobo.github.io/RifaM95/`;
+        const msgFull = `✅ *NUEVA RESERVA DE RIFA*\n\nHola, soy *${name}*.\nHe apartado ${textNum}: *${sortedNums}*.\n\n💵 *Total a pagar:* *$${totalFmt}*\n\n${payMsg}\n\n👇 *Copia el medio de pago para pagar:* \n${document.getElementById('header-nequi-val').innerText}\n\n🙏 *Adjunto el comprobante de pago para confirmar mis números.*\n\n🚀 Consulta la tabla actualizada aquí:\nhttps://luishernandolobo.github.io/RifaM95/`;
         
         // Abrir WhatsApp dirigido al Administrador
         window.open(`https://wa.me/${adminWhatsApp}?text=${encodeURIComponent(msgFull)}`, '_blank');
